@@ -75,6 +75,9 @@ img { max-width: 100%; }
   background: var(--wf-bg);
   padding: 38px 20px 24px;
   margin: 0 0 22px;
+  /* Le header est collant : sans cette marge, une ancre place le titre de
+     section dessous. */
+  scroll-margin-top: 104px;
 }
 
 .wf-card {
