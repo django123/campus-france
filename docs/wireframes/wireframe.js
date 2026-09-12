@@ -193,6 +193,34 @@
       var open = header.classList.toggle("is-open");
       burger.setAttribute("aria-expanded", open ? "true" : "false");
     });
+
+    mountTabs();
+  }
+
+  /* Onglets génériques : un conteneur [data-tabs] regroupe des boutons
+     [data-tab] et des panneaux [data-panel] appariés par leur valeur. */
+  function mountTabs() {
+    var groups = document.querySelectorAll("[data-tabs]");
+
+    Array.prototype.forEach.call(groups, function (group) {
+      var buttons = group.querySelectorAll("[data-tab]");
+      var panels = group.querySelectorAll("[data-panel]");
+
+      function select(name) {
+        Array.prototype.forEach.call(buttons, function (b) {
+          b.setAttribute("aria-selected", b.dataset.tab === name ? "true" : "false");
+        });
+        Array.prototype.forEach.call(panels, function (p) {
+          p.hidden = p.dataset.panel !== name;
+        });
+      }
+
+      Array.prototype.forEach.call(buttons, function (b) {
+        b.addEventListener("click", function () { select(b.dataset.tab); });
+      });
+
+      if (buttons.length) { select(buttons[0].dataset.tab); }
+    });
   }
 
   if (document.readyState === "loading") {
