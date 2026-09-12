@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wireframe — Accueil | Campus Connect</title>
+<link rel="stylesheet" href="wireframe.css">
+</head>
+<body data-page="Accueil">
+
+<main class="wf-container">
+
+  <!-- 1 ------------------------------------------------------------------ -->
+  <section class="wf-block" data-label="1 · hero">
+    <div class="wf-split">
+
+      <div>
+        <h1 class="wf-h1">Étudier en France, nous vous accompagnons à chaque étape</h1>
+        <p class="wf-p wf-lead">
+          Campus Connect est votre passerelle de confiance vers les études
+          supérieures en France : de l'orientation à votre installation, un
+          accompagnement humain et personnalisé.
+        </p>
+        <div class="wf-btn-row">
+          <a class="wf-btn wf-btn--primary" href="#">🎓 Je veux étudier en France</a>
+          <a class="wf-btn wf-btn--secondary" href="#">💬 Discuter sur WhatsApp</a>
+        </div>
+      </div>
+
+      <div>
+        <span class="wf-img wf-img--wide" data-caption="visuel hero"></span>
+      </div>
+
+    </div>
+
+    <p class="note">
+      Visuel du hero : photo réelle d'étudiants accompagnés (plus crédible,
+      suppose des droits à l'image signés) ou illustration (plus neutre,
+      réutilisable pour le Canada et l'Allemagne) ? À trancher avant la
+      maquette haute fidélité, le choix conditionne tout le reste du site.
+    </p>
+
+    <p class="note">
+      Deux CTA côte à côte se concurrencent. Le bouton WhatsApp du hero fait
+      doublon avec le bouton flottant présent en permanence. Confirmer qu'on
+      les garde tous les deux, ou retirer le WhatsApp du hero au profit du
+      seul parcours formulaire.
+    </p>
+
+    <p class="note">
+      Le hero ne parle que de la France alors que le Canada et l'Allemagne
+      sont annoncés « bientôt » dans le menu. Faut-il une mention dès l'accueil
+      (« France aujourd'hui, Canada et Allemagne bientôt ») ou garde-t-on
+      l'accueil 100 % France jusqu'à l'ouverture réelle ?
+    </p>
+  </section>
+
+  <!-- 2 ------------------------------------------------------------------ -->
+  <section class="wf-block" data-label="2 · points forts">
+    <h2 class="wf-h2">Ce qui nous distingue</h2>
+
+    <div class="wf-grid wf-grid--4">
+      <div class="wf-card" data-label="atout 1">
+        <h3 class="wf-h3">Établissements publics <em>et</em> privés</h3>
+        <p class="wf-p wf-small">
+          Une phrase d'appui — l'éventail couvert, sans citer de nom
+          d'établissement à ce stade.
+        </p>
+      </div>
+      <div class="wf-card" data-label="atout 2">
+        <h3 class="wf-h3">Quel que soit votre parcours</h3>
+        <p class="wf-p wf-small">
+          Bac, licence en cours, réorientation, reprise d'études : une phrase
+          d'appui.
+        </p>
+      </div>
+      <div class="wf-card" data-label="atout 3">
+        <h3 class="wf-h3">Réseau d'écoles partenaires</h3>
+        <p class="wf-p wf-small">
+          Une phrase d'appui — la nature du réseau, renvoi vers la page
+          Partenaires.
+        </p>
+      </div>
+      <div class="wf-card" data-label="atout 4">
+        <h3 class="wf-h3">Partenaires assurance AVI et logement</h3>
+        <p class="wf-p wf-small">
+          Une phrase d'appui — les démarches couvertes une fois l'admission
+          obtenue.
+        </p>
+      </div>
+    </div>
+
+    <p class="note">
+      Ces quatre atouts sont posés dans l'ordre du brief. Confirmer la
+      hiérarchie : le premier est celui que retiendra un visiteur pressé.
+      L'atout « assurance AVI et logement » parle surtout aux personnes déjà
+      admises et recoupe le bloc 4 — vérifier qu'il n'y a pas redite.
+    </p>
+  </section>
+
+  <!-- 3 ------------------------------------------------------------------ -->
+  <section class="wf-block" data-label="3 · réassurance">
+    <div class="wf-grid wf-grid--3">
+      <div class="wf-card wf-card--plain">
+        <div class="wf-avatar" title="Picto"></div>
+        <h3 class="wf-h3" style="margin-top:10px">+7 ans d'expérience</h3>
+      </div>
+      <div class="wf-card wf-card--plain">
+        <div class="wf-avatar" title="Picto"></div>
+        <h3 class="wf-h3" style="margin-top:10px">Présence en France et au Cameroun</h3>
+      </div>
+      <div class="wf-card wf-card--plain">
+        <div class="wf-avatar" title="Picto"></div>
+        <h3 class="wf-h3" style="margin-top:10px">Accompagnement humain, sans promesses irréalistes</h3>
+      </div>
+    </div>
+
+    <p class="note">
+      « +7 ans d'expérience » est une donnée qui vieillit. Prévoir de la rendre
+      modifiable sans toucher au code (champ ACF ou réglage), sinon elle sera
+      fausse dans douze mois. Confirmer aussi l'année de référence.
+    </p>
+  </section>
+
+  <!-- 4 ------------------------------------------------------------------ -->
+  <section class="wf-block" data-label="4 · double entrée">
+    <h2 class="wf-h2">Où en êtes-vous ?</h2>
+
+    <div class="wf-grid wf-grid--2">
+      <div class="wf-card" data-label="entrée a">
+        <h3 class="wf-h3">Vous avez déjà une admission ?</h3>
+        <p class="wf-p">
+          Orientation vers les <strong>packs post-admission</strong> : dossier
+          Campus France, visa, logement, assurance, installation.
+        </p>
+        <span class="wf-img" data-caption="visuel ou picto"
+              style="aspect-ratio:16/6"></span>
+        <div class="wf-btn-row" style="margin-top:14px">
+          <a class="wf-btn wf-btn--primary" href="#">Voir les packs post-admission</a>
+        </div>
+      </div>
+
+      <div class="wf-card" data-label="entrée b">
+        <h3 class="wf-h3">Vous cherchez encore votre établissement ?</h3>
+        <p class="wf-p">
+          Orientation vers les <strong>packs pré-admission</strong> : bilan
+          d'orientation, sélection d'établissements, candidatures, suivi des
+          réponses.
+        </p>
+        <span class="wf-img" data-caption="visuel ou picto"
+              style="aspect-ratio:16/6"></span>
+        <div class="wf-btn-row" style="margin-top:14px">
+          <a class="wf-btn wf-btn--primary" href="#">Voir les packs pré-admission</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="note">
+      Aucun prix n'apparaît ici, conformément à la règle du projet (tarifs
+      internes uniquement). Il faut donc décider ce que voit le visiteur au
+      bout du bouton : le détail du contenu des packs sans montant, un
+      formulaire de devis, ou une prise de rendez-vous ? C'est le point le plus
+      structurant de cette page.
+    </p>
+
+    <p class="note">
+      Le libellé « packs » est repris du brief. Vérifier qu'il correspond au
+      vocabulaire commercial réellement utilisé avec les familles
+      (« formules », « accompagnements »…), il apparaîtra partout sur le site.
+    </p>
+  </section>
+
+  <!-- 5 ------------------------------------------------------------------ -->
+  <section class="wf-block" data-label="5 · parcours en 8 étapes">
+    <h2 class="wf-h2">Comment ça marche</h2>
+
+    <div class="wf-steps">
+      <div class="wf-step">
+        <div class="wf-step__num">1</div>
+        <div class="wf-step__label">Évaluation gratuite</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-step__num">2</div>
+        <div class="wf-step__label">Recherche d'établissement</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-step__num">3</div>
+        <div class="wf-step__label">Admission</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-step__num">4</div>
+        <div class="wf-step__label">Dossier Campus France</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-step__num">5</div>
+        <div class="wf-step__label">Visa</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-step__num">6</div>
+        <div class="wf-step__label">Logement</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-step__num">7</div>
+        <div class="wf-step__label">Départ</div>
+      </div>
+      <div class="wf-step">
+        <div class="wf-step__num">8</div>
+        <div class="wf-step__label">Installation &amp; suivi</div>
+      </div>
+    </div>
+
+    <div class="wf-btn-row" style="margin-top:20px">
+      <a class="wf-btn wf-btn--secondary" href="#">Voir le détail de chaque étape</a>
+    </div>
+
+    <p class="note">
+      L'étape 1 est annoncée « gratuite ». Confirmer que c'est bien le cas sans
+      condition, et préciser ce qu'elle recouvre — c'est la promesse d'entrée
+      dans le tunnel, elle doit être tenable telle quelle.
+    </p>
+
+    <p class="note">
+      Les étapes 3, 4 et 5 (Admission, Campus France, Visa) dépendent de
+      décisions administratives extérieures. Les formuler comme un
+      accompagnement à la démarche, jamais comme un résultat acquis : la règle
+      du projet interdit toute promesse de résultat.
+    </p>
+  </section>
+
+  <!-- 6 ------------------------------------------------------------------ -->
+  <section class="wf-block" data-label="6 · témoignages">
+    <h2 class="wf-h2">Ils nous ont fait confiance</h2>
+
+    <div class="wf-grid wf-grid--3">
+      <div class="wf-card" data-label="témoignage 1">
+        <div class="wf-avatar"></div>
+        <p class="wf-h3" style="margin-top:10px">Prénom</p>
+        <p class="wf-p wf-small">
+          « Citation à recueillir — deux à trois lignes, sur le déroulé de
+          l'accompagnement. »
+        </p>
+        <p class="wf-small">Établissement — Ville</p>
+      </div>
+      <div class="wf-card" data-label="témoignage 2">
+        <div class="wf-avatar"></div>
+        <p class="wf-h3" style="margin-top:10px">Prénom</p>
+        <p class="wf-p wf-small">
+          « Citation à recueillir — deux à trois lignes, sur le déroulé de
+          l'accompagnement. »
+        </p>
+        <p class="wf-small">Établissement — Ville</p>
+      </div>
+      <div class="wf-card" data-label="témoignage 3">
+        <div class="wf-avatar"></div>
+        <p class="wf-h3" style="margin-top:10px">Prénom</p>
+        <p class="wf-p wf-small">
+          « Citation à recueillir — deux à trois lignes, sur le déroulé de
+          l'accompagnement. »
+        </p>
+        <p class="wf-small">Établissement — Ville</p>
+      </div>
+    </div>
+
+    <p class="note">
+      Témoignages : prévoir un accord écrit pour la photo et le prénom (RGPD),
+      et relire chaque citation. Une phrase comme « grâce à eux j'ai eu mon
+      visa à coup sûr » serait une promesse de résultat, interdite sur le site
+      même dans la bouche d'un tiers.
+    </p>
+
+    <p class="note">
+      Trois témoignages en dur ou un carrousel alimentable ? S'ils doivent
+      pouvoir être ajoutés sans intervention technique, il faut un contenu
+      dédié — à arbitrer maintenant, cela change l'intégration.
+    </p>
+  </section>
+
+  <!-- 7 ------------------------------------------------------------------ -->
+  <section class="wf-block" data-label="7 · logos partenaires">
+    <h2 class="wf-h2">Nos partenaires</h2>
+
+    <div class="wf-logos">
+      <div class="wf-logo">Logo 1</div>
+      <div class="wf-logo">Logo 2</div>
+      <div class="wf-logo">Logo 3</div>
+      <div class="wf-logo">Logo 4</div>
+      <div class="wf-logo">Logo 5</div>
+      <div class="wf-logo">Logo 6</div>
+    </div>
+
+    <p class="note">
+      Afficher le logo d'un établissement ou d'un assureur suppose son
+      autorisation écrite. Fournir la liste de ceux qui l'ont donnée : six
+      emplacements sont réservés, il en faut au moins quatre pour que la bande
+      ne paraisse pas vide.
+    </p>
+  </section>
+
+  <!-- 8 ------------------------------------------------------------------ -->
+  <section class="wf-block" data-label="8 · bandeau partenaires">
+    <div class="wf-split">
+      <div>
+        <h2 class="wf-h2" style="margin-bottom:6px">
+          Vous êtes une école, un assureur ou un bailleur ?
+        </h2>
+        <p class="wf-p">
+          Une ligne d'accroche à destination des professionnels.
+        </p>
+      </div>
+      <div class="wf-btn-row">
+        <a class="wf-btn wf-btn--primary" href="#">Devenir partenaire</a>
+      </div>
+    </div>
+
+    <p class="note">
+      Ce bandeau s'adresse à une cible différente du reste de la page. Le
+      bouton mène-t-il à un formulaire professionnel distinct, ou au formulaire
+      de contact commun ? Un même formulaire pour les familles et les écoles
+      rendra les demandes difficiles à trier.
+    </p>
+  </section>
+
+  <!-- 9 ------------------------------------------------------------------ -->
+  <section class="wf-block" data-label="9 · cta final">
+    <h2 class="wf-h2">Prêt à commencer ?</h2>
+    <p class="wf-p">
+      Rappel de la promesse en une phrase, puis les deux mêmes CTA qu'en haut
+      de page.
+    </p>
+    <div class="wf-btn-row">
+      <a class="wf-btn wf-btn--primary" href="#">🎓 Je veux étudier en France</a>
+      <a class="wf-btn wf-btn--secondary" href="#">💬 Discuter sur WhatsApp</a>
+    </div>
+
+    <p class="note">
+      Un seul numéro WhatsApp pour la France et le Cameroun, ou un routage
+      selon le pays du visiteur ? Le footer annonce deux implantations : si un
+      seul numéro répond, le préciser pour ne pas créer d'attente.
+    </p>
+
+    <p class="note">
+      Le formulaire « Je veux étudier en France » est l'objectif de conversion
+      du site. Lister les champs attendus avant de maquetter la page dédiée, et
+      prévoir la case de consentement RGPD — jamais pré-cochée.
+    </p>
+  </section>
+
+</main>
+
+<script src="wireframe.js"></script>
+</body>
+</html>

@@ -1,0 +1,588 @@
+/* ==========================================================================
+   Campus Connect — kit de wireframes basse fidélité
+   --------------------------------------------------------------------------
+   Règle : nuances de gris uniquement. Seule exception assumée, le rouge des
+   annotations .note, qui doivent se distinguer du contenu maquetté.
+   Police système, aucune typo chargée, aucun asset externe.
+   Breakpoint mobile : 768px.
+   ========================================================================== */
+
+:root {
+  --wf-bg:          #ffffff;
+  --wf-paper:       #f4f4f4;
+  --wf-fill:        #e4e4e4;
+  --wf-line:        #9a9a9a;
+  --wf-line-strong: #6b6b6b;
+  --wf-ink:         #2f2f2f;
+  --wf-ink-soft:    #6b6b6b;
+  --wf-dark:        #4a4a4a;  /* CTA principal */
+  --wf-note:        #c0392b;  /* annotations client */
+
+  --wf-radius: 6px;
+  --wf-gap:    20px;
+  --wf-max:    1200px;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  counter-reset: note;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--wf-ink);
+  background: var(--wf-paper);
+}
+
+img { max-width: 100%; }
+
+.wf-container {
+  max-width: var(--wf-max);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* --------------------------------------------------------------------------
+   Blocs et labels
+   Tout élément porteur d'un attribut data-label reçoit son étiquette en haut
+   à gauche : blocs de page, cartes, colonnes de footer.
+   -------------------------------------------------------------------------- */
+
+[data-label] { position: relative; }
+
+[data-label]::before {
+  content: attr(data-label);
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  padding: 3px 9px;
+  background: var(--wf-line);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-radius: var(--wf-radius) 0 var(--wf-radius) 0;
+}
+
+.wf-block {
+  border: 2px dashed var(--wf-line);
+  border-radius: var(--wf-radius);
+  background: var(--wf-bg);
+  padding: 38px 20px 24px;
+  margin: 0 0 22px;
+}
+
+.wf-card {
+  border: 1px dashed var(--wf-line);
+  border-radius: var(--wf-radius);
+  background: var(--wf-bg);
+  padding: 32px 16px 16px;
+}
+
+.wf-card--plain { padding: 16px; }
+
+/* Un bloc imbriqué se distingue du bloc parent par son fond. */
+.wf-block .wf-block,
+.wf-block .wf-card { background: var(--wf-paper); }
+
+/* --------------------------------------------------------------------------
+   Placeholders visuels : rectangle gris barré d'une croix
+   -------------------------------------------------------------------------- */
+
+.wf-img,
+.wf-avatar,
+.wf-logo-ph {
+  background-color: var(--wf-fill);
+  border: 1px solid var(--wf-line);
+  background-image:
+    linear-gradient(to top right,
+      transparent calc(50% - 1px), var(--wf-line) calc(50% - 1px),
+      var(--wf-line) calc(50% + 1px), transparent calc(50% + 1px)),
+    linear-gradient(to bottom right,
+      transparent calc(50% - 1px), var(--wf-line) calc(50% - 1px),
+      var(--wf-line) calc(50% + 1px), transparent calc(50% + 1px));
+}
+
+.wf-img {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.wf-img--wide   { aspect-ratio: 16 / 9; }
+.wf-img--square { aspect-ratio: 1 / 1; }
+
+.wf-img[data-caption]::after {
+  content: attr(data-caption);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 3px 9px;
+  background: var(--wf-bg);
+  border: 1px solid var(--wf-line);
+  color: var(--wf-ink-soft);
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.wf-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  flex: none;
+}
+
+.wf-logo-ph {
+  width: 130px;
+  height: 38px;
+  flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   Boutons
+   -------------------------------------------------------------------------- */
+
+.wf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border: 2px solid var(--wf-line-strong);
+  border-radius: 24px;
+  background: var(--wf-bg);
+  color: var(--wf-ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.wf-btn--primary {
+  background: var(--wf-dark);
+  border-color: var(--wf-dark);
+  color: #fff;
+}
+
+.wf-btn--secondary { background: var(--wf-bg); }
+
+.wf-btn--sm { padding: 8px 14px; font-size: 13px; }
+
+.wf-btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   Annotations client — numérotation automatique
+   -------------------------------------------------------------------------- */
+
+.note {
+  position: relative;
+  margin: 14px 0 0;
+  padding: 9px 12px 9px 38px;
+  border: 1px dashed var(--wf-note);
+  border-radius: var(--wf-radius);
+  background: var(--wf-bg);
+  color: var(--wf-note);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.note::before {
+  counter-increment: note;
+  content: counter(note);
+  position: absolute;
+  left: 9px;
+  top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 21px;
+  height: 21px;
+  border-radius: 50%;
+  background: var(--wf-note);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   Typographie de maquette
+   -------------------------------------------------------------------------- */
+
+.wf-h1 { margin: 0 0 12px; font-size: 30px; line-height: 1.2;  font-weight: 700; }
+.wf-h2 { margin: 0 0 16px; font-size: 22px; line-height: 1.25; font-weight: 700; }
+.wf-h3 { margin: 0 0 8px;  font-size: 16px; line-height: 1.3;  font-weight: 700; }
+.wf-p  { margin: 0 0 12px; color: var(--wf-ink-soft); }
+.wf-p:last-child { margin-bottom: 0; }
+.wf-lead { font-size: 16px; }
+.wf-small { font-size: 13px; color: var(--wf-ink-soft); }
+
+.wf-tag {
+  display: inline-block;
+  padding: 1px 7px;
+  border: 1px solid var(--wf-line);
+  border-radius: 9px;
+  background: var(--wf-fill);
+  color: var(--wf-ink-soft);
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Grilles
+   -------------------------------------------------------------------------- */
+
+.wf-grid { display: grid; gap: var(--wf-gap); }
+
+.wf-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.wf-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.wf-grid--4 { grid-template-columns: repeat(4, 1fr); }
+.wf-grid--6 { grid-template-columns: repeat(6, 1fr); }
+
+/* Texte à gauche, visuel à droite. Le visuel passe dessous sur mobile,
+   l'ordre du DOM suffit. */
+.wf-split {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 32px;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   Frise du parcours : horizontale desktop, verticale mobile
+   -------------------------------------------------------------------------- */
+
+.wf-steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 10px;
+}
+
+/* Ligne de liaison, tirée derrière les pastilles. 6.25% = demi-colonne. */
+.wf-steps::before {
+  content: "";
+  position: absolute;
+  top: 17px;
+  left: 6.25%;
+  right: 6.25%;
+  border-top: 2px dashed var(--wf-line);
+}
+
+.wf-step { position: relative; text-align: center; }
+
+.wf-step__num {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  margin: 0 auto 9px;
+  border: 2px solid var(--wf-line-strong);
+  border-radius: 50%;
+  background: var(--wf-bg);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.wf-step__label { font-size: 13px; line-height: 1.35; }
+
+/* --------------------------------------------------------------------------
+   Bande de logos partenaires
+   -------------------------------------------------------------------------- */
+
+.wf-logos { display: grid; grid-template-columns: repeat(6, 1fr); gap: 14px; }
+
+.wf-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 58px;
+  background: var(--wf-fill);
+  border: 1px solid var(--wf-line);
+  color: var(--wf-ink-soft);
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   Header commun
+   -------------------------------------------------------------------------- */
+
+.wf-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--wf-bg);
+  border-bottom: 2px dashed var(--wf-line);
+}
+
+.wf-header__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: var(--wf-max);
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
+.wf-nav {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 2px 13px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wf-nav__item { position: relative; }
+
+.wf-nav a {
+  display: inline-block;
+  padding: 4px 1px;
+  border-bottom: 1px solid transparent;
+  color: var(--wf-ink);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.wf-nav a:hover,
+.wf-nav a:focus { border-bottom-color: var(--wf-line); }
+
+.wf-submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 60;
+  min-width: 200px;
+  margin: 0;
+  padding: 8px;
+  background: var(--wf-bg);
+  border: 2px dashed var(--wf-line);
+  border-radius: 0 0 var(--wf-radius) var(--wf-radius);
+  list-style: none;
+}
+
+.wf-nav__item:hover > .wf-submenu,
+.wf-nav__item:focus-within > .wf-submenu { display: block; }
+
+.wf-submenu a { display: block; padding: 5px 3px; }
+
+.wf-burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 38px;
+  padding: 0;
+  border: 2px solid var(--wf-line-strong);
+  border-radius: var(--wf-radius);
+  background: var(--wf-bg);
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   Barre d'identification de la maquette (hors site, repère de travail)
+   -------------------------------------------------------------------------- */
+
+.wf-pagebar {
+  background: var(--wf-line-strong);
+  color: #fff;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.wf-pagebar__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  max-width: var(--wf-max);
+  margin: 0 auto;
+  padding: 7px 20px;
+}
+
+.wf-pagebar a { color: #fff; }
+
+/* --------------------------------------------------------------------------
+   Bouton flottant WhatsApp
+   -------------------------------------------------------------------------- */
+
+.wf-whatsapp {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 80;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 17px;
+  border: 2px solid var(--wf-line-strong);
+  border-radius: 28px;
+  background: var(--wf-dark);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* --------------------------------------------------------------------------
+   Footer commun
+   -------------------------------------------------------------------------- */
+
+.wf-footer {
+  margin-top: 28px;
+  padding: 26px 0 92px; /* marge basse : le bouton flottant ne masque rien */
+  background: var(--wf-bg);
+  border-top: 2px dashed var(--wf-line);
+}
+
+.wf-footer__cols {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--wf-gap);
+}
+
+.wf-footer ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.wf-footer li { margin: 0 0 5px; font-size: 13px; color: var(--wf-ink-soft); }
+
+.wf-footer a { color: var(--wf-ink); }
+
+.wf-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--wf-line);
+}
+
+.wf-social { display: flex; gap: 8px; }
+
+.wf-social span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--wf-line);
+  border-radius: 50%;
+  background: var(--wf-fill);
+  font-size: 10px;
+  color: var(--wf-ink-soft);
+}
+
+/* --------------------------------------------------------------------------
+   Mobile — 768px
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+  .wf-grid--2,
+  .wf-grid--3,
+  .wf-grid--4,
+  .wf-split,
+  .wf-footer__cols { grid-template-columns: 1fr; }
+
+  .wf-grid--6,
+  .wf-logos { grid-template-columns: repeat(2, 1fr); }
+
+  .wf-h1 { font-size: 24px; }
+  .wf-h2 { font-size: 19px; }
+
+  .wf-block { padding: 34px 14px 20px; }
+
+  .wf-btn-row .wf-btn { flex: 1 1 100%; }
+
+  /* Burger : la navigation se replie, le CTA reste visible. */
+  .wf-burger { display: inline-flex; }
+
+  .wf-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 12px 20px;
+    background: var(--wf-bg);
+    border-bottom: 2px dashed var(--wf-line);
+  }
+
+  .wf-header.is-open .wf-nav { display: flex; }
+
+  .wf-nav > .wf-nav__item { border-bottom: 1px dashed var(--wf-line); }
+  .wf-nav > .wf-nav__item:last-child { border-bottom: 0; }
+  .wf-nav a { padding: 9px 1px; }
+
+  /* Sur mobile le sous-menu est déplié : la structure doit rester lisible. */
+  .wf-submenu {
+    display: block;
+    position: static;
+    min-width: 0;
+    margin: 0 0 8px 6px;
+    padding: 0 0 0 12px;
+    border: 0;
+    border-left: 2px dashed var(--wf-line);
+  }
+
+  .wf-logo-ph { width: 104px; height: 34px; }
+
+  /* Frise : bascule en vertical. */
+  .wf-steps { grid-template-columns: 1fr; gap: 14px; }
+
+  .wf-steps::before {
+    top: 6px;
+    bottom: 6px;
+    left: 17px;
+    right: auto;
+    border-top: 0;
+    border-left: 2px dashed var(--wf-line);
+  }
+
+  .wf-step {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 12px;
+    align-items: center;
+    text-align: left;
+  }
+
+  .wf-step__num { margin: 0; }
+}
