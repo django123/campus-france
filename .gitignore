@@ -2,4 +2,5 @@
 *.log
 wp-content/uploads/
 wp-content/plugins/elementor-pro*/
+elementor-pro-*.zip
 .DS_Store
