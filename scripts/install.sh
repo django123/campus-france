@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Installation initiale de WordPress + plugins. À lancer UNE fois :
-#   docker compose run --rm wpcli bash /scripts/install.sh
-# (les variables viennent du .env via docker compose)
+#   docker compose run --rm --entrypoint bash wpcli /scripts/install.sh
+# (les variables viennent du .env, injectées dans le service wpcli par docker-compose.yml)
 set -euo pipefail
 
 : "${SITE_URL:=http://localhost:8080}"

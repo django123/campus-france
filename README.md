@@ -4,12 +4,23 @@
 ```bash
 cp .env.example .env        # puis éditer les mots de passe
 docker compose up -d
-docker compose run --rm wpcli bash /scripts/install.sh
+docker compose run --rm --entrypoint bash wpcli /scripts/install.sh
 ```
+
+`--entrypoint bash` est nécessaire : l'entrypoint du service `wpcli` est `wp`,
+pour que `docker compose run --rm wpcli <commande>` fonctionne (voir WP-CLI plus bas).
+
+Sous Git Bash (Windows), préfixer par `MSYS_NO_PATHCONV=1` sinon `/scripts/install.sh`
+est réécrit en chemin Windows et le script est introuvable.
 
 - Site : http://localhost:8080  (admin : /wp-admin)
 - phpMyAdmin : http://localhost:8081
 - Mailpit (tous les mails sortants) : http://localhost:8025
+
+Ces ports sont ceux de `.env.example` (`WP_PORT`, `PMA_PORT`, `MAIL_UI_PORT`) ; adaptez-les
+si l'un est déjà pris. `WP_PORT` doit rester cohérent avec `SITE_URL` : après l'install,
+changer de port impose aussi un `wp search-replace 'http://localhost:ancien' 'http://localhost:nouveau'`,
+l'URL étant stockée en base.
 
 ## Après install.sh
 1. Installer **Elementor Pro** (zip depuis le compte Elementor) et activer la licence.

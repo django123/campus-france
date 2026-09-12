@@ -1,0 +1,9 @@
+# Normalise les fins de ligne indépendamment du core.autocrlf de chaque poste.
+# Sans ça, un clone sous Windows (core.autocrlf=true) réécrit les fichiers en CRLF.
+* text=auto
+
+# Fichiers consommés à l'intérieur des conteneurs Linux : forcer LF.
+# install.sh en CRLF casse le shebang (`#!/usr/bin/env bash\r` : fichier introuvable).
+*.sh  text eol=lf
+*.yml text eol=lf
+*.ini text eol=lf
