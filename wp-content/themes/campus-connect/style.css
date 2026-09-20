@@ -1,7 +1,78 @@
 /*
 Theme Name: Campus Connect
 Template: hello-elementor
-Version: 0.1.0
+Version: 0.2.0
 Description: Thème enfant de Hello Elementor pour campusconnect.fr
 Text Domain: campus-connect
 */
+
+/* Jetons de marque : source unique des couleurs et des polices.
+   Les couleurs globales Elementor reprennent exactement ces valeurs. */
+@import url("assets/brand/brand-tokens.css");
+
+/* Les @font-face sont chargés à part (handle campus-connect-fonts, voir
+   functions.php) pour ne pas retarder les polices derrière un import chaîné. */
+
+/* ------------------------------------------------------------------ *
+ * Styles de base
+ * ------------------------------------------------------------------ */
+
+body {
+  font-family: var(--cc-font-texte);
+  color: var(--cc-encre);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--cc-font-titre);
+  color: var(--cc-bleu-nuit);
+}
+
+a {
+  color: var(--cc-bleu);
+}
+
+/* ------------------------------------------------------------------ *
+ * Contenu fictif
+ *
+ * Toute donnée inventée (faux témoignage, chiffre provisoire, lorem ipsum)
+ * porte .cc-placeholder. Le rendu volontairement laid garantit qu'aucun faux
+ * contenu ne part en production sans qu'on le voie. Voir le point
+ * correspondant dans docs/checklist-mise-en-ligne.md.
+ * ------------------------------------------------------------------ */
+
+.cc-placeholder {
+  background-color: #FFFBEA;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(230, 160, 0, .18) 0,
+    rgba(230, 160, 0, .18) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  border: 2px dashed #E08A00;
+  border-radius: var(--cc-radius);
+  padding: .5em .75em;
+}
+
+/* Étiquette « CONTENU FICTIF » sur les blocs, pas sur un mot isolé en ligne. */
+.cc-placeholder::before {
+  content: "CONTENU FICTIF";
+  display: block;
+  margin-bottom: .35em;
+  font-family: var(--cc-font-texte);
+  font-size: .6875rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  color: #8A5300;
+}
+
+.cc-placeholder--inline,
+span.cc-placeholder {
+  display: inline;
+  padding: 0 .25em;
+}
+
+.cc-placeholder--inline::before,
+span.cc-placeholder::before {
+  display: none;
+}

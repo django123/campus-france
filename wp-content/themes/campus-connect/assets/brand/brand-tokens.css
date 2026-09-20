@@ -1,0 +1,37 @@
+/*
+ * Campus Connect — jetons de marque (PROVISOIRES, à valider par le client)
+ * Une seule source de vérité : ces variables sont reprises dans les couleurs
+ * globales Elementor. Changer une valeur ici doit suffire à changer le site.
+ */
+:root {
+  /* Bleus */
+  --cc-bleu-nuit:   #0B3C7D; /* titres, header, footer */
+  --cc-bleu:        #1565C0; /* CTA principal, liens — contraste AA sur blanc */
+  --cc-bleu-clair:  #E8F1FB; /* fonds de section alternés */
+  --cc-bleu-pale:   #F5F9FE;
+
+  /* Verts — surfaces, pictos, bordures. JAMAIS pour du texte courant :
+     contraste insuffisant sur blanc. */
+  --cc-vert:        #17A673; /* accents, validation, CTA secondaire */
+  --cc-vert-fonce:  #0E7A54; /* si du texte vert est indispensable */
+  --cc-vert-clair:  #E6F6EF;
+
+  /* Neutres */
+  --cc-encre:       #1B2733; /* texte courant */
+  --cc-gris:        #5A6B7B; /* texte secondaire */
+  --cc-ligne:       #DCE4EC; /* bordures, séparateurs */
+  --cc-blanc:       #FFFFFF;
+
+  /* WhatsApp : on garde la couleur officielle, pas le vert de la marque,
+     pour que le bouton reste immédiatement reconnaissable. */
+  --cc-whatsapp:    #25D366;
+
+  /* Typographie */
+  --cc-font-titre: "Poppins", "Segoe UI", Arial, sans-serif;
+  --cc-font-texte: "Inter", "Segoe UI", Arial, sans-serif;
+
+  /* Rayons et ombres */
+  --cc-radius:      10px;
+  --cc-radius-lg:   16px;
+  --cc-ombre:       0 2px 8px rgba(11, 60, 125, .08);
+}

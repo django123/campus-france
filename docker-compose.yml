@@ -1,3 +1,16 @@
+# wp-config.php évalue WORDPRESS_CONFIG_EXTRA depuis l'environnement du conteneur,
+# à chaque exécution (voir getenv_docker dans wp-config.php). Cette ancre garantit
+# que WP-CLI voit les mêmes constantes que le serveur web : sans elle,
+# wp_get_environment_type() renvoie « production » en ligne de commande alors que
+# le site tourne en « local », et les comportements conditionnés par
+# l'environnement divergent selon le point d'entrée.
+x-wp-config-extra: &wp_config_extra |
+  define('WP_DEBUG_LOG', true);
+  define('WP_DEBUG_DISPLAY', false);
+  define('WP_MEMORY_LIMIT', '256M');
+  define('WP_ENVIRONMENT_TYPE', 'local');
+  define('DISALLOW_FILE_EDIT', true);
+
 services:
   db:
     image: mariadb:11
@@ -32,12 +45,7 @@ services:
       WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
       WORDPRESS_TABLE_PREFIX: cc_
       WORDPRESS_DEBUG: "1"
-      WORDPRESS_CONFIG_EXTRA: |
-        define('WP_DEBUG_LOG', true);
-        define('WP_DEBUG_DISPLAY', false);
-        define('WP_MEMORY_LIMIT', '256M');
-        define('WP_ENVIRONMENT_TYPE', 'local');
-        define('DISALLOW_FILE_EDIT', true);
+      WORDPRESS_CONFIG_EXTRA: *wp_config_extra
     volumes:
       - wp_core:/var/www/html
       # Seul le code versionné est monté : thème enfant + mu-plugins
@@ -58,6 +66,9 @@ services:
       WORDPRESS_DB_USER: ${DB_USER}
       WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
       WORDPRESS_TABLE_PREFIX: cc_
+      # Mêmes constantes que le serveur web (voir l'ancre en tête de fichier),
+      # pour que WP-CLI et le site voient le même environnement.
+      WORDPRESS_CONFIG_EXTRA: *wp_config_extra
       # Consommées par scripts/install.sh
       SITE_URL: ${SITE_URL}
       SITE_TITLE: ${SITE_TITLE}

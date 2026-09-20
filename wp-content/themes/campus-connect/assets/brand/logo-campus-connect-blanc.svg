@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 72" width="340" height="72" role="img" aria-label="Campus Connect">
+  <title>Campus Connect — version sur fond sombre</title>
+  <g fill="none" stroke-linecap="round">
+    <path d="M14 50 C 14 18, 58 18, 58 50" stroke="#FFFFFF" stroke-width="5"/>
+    <circle cx="14" cy="50" r="7" fill="#FFFFFF" stroke="none"/>
+    <circle cx="58" cy="50" r="7" fill="#3DD68C" stroke="none"/>
+  </g>
+  <text x="80" y="42" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="25" font-weight="700" fill="#FFFFFF" letter-spacing="-0.3">Campus</text>
+  <text x="189" y="42" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="25" font-weight="400" fill="#BBD6F5" letter-spacing="-0.3">Connect</text>
+  <text x="81" y="60" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="10.5" font-weight="500" fill="#9DB4CC" letter-spacing="1.6">ÉTUDIER EN FRANCE</text>
+</svg>

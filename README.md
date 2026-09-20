@@ -25,7 +25,30 @@ l'URL étant stockée en base.
 ## Après install.sh
 1. Installer **Elementor Pro** (zip depuis le compte Elementor) et activer la licence.
 2. Extensions > Elementor > Réglages > Fonctionnalités : activer Flexbox Container, désactiver ce qui n'est pas utilisé.
-3. Mettre à jour Elementor : Outils > Regénérer CSS.
+3. Appliquer la charte à Elementor :
+   ```bash
+   docker compose run --rm wpcli eval-file /scripts/configure-elementor.php
+   ```
+   Écrit les couleurs et polices globales à partir des jetons de
+   `wp-content/themes/campus-connect/assets/brand/brand-tokens.css`, désactive les
+   Google Fonts et régénère le CSS. Idempotent : à relancer après toute
+   modification des jetons.
+4. Mettre à jour Elementor : Outils > Regénérer CSS.
+
+## Charte et contenus
+
+- Les couleurs et les polices ont une source unique :
+  `wp-content/themes/campus-connect/assets/brand/brand-tokens.css`.
+- Poppins et Inter sont **auto-hébergées** (`assets/fonts/`) : aucun appel à
+  Google Fonts, c'est une contrainte RGPD du projet.
+- Tout contenu fictif doit porter la classe `.cc-placeholder`, qui le rend
+  visuellement impossible à manquer. Le retrait de ces contenus est un point
+  bloquant de `docs/checklist-mise-en-ligne.md`.
+- Les coordonnées (WhatsApp) ne s'écrivent jamais en dur : voir
+  `wp-content/mu-plugins/cc-config.php`, `cc_whatsapp_link()` et le shortcode
+  `[cc_whatsapp pays="fr"]`, utilisable dans Elementor.
+- **Avant toute mise en ligne** : dérouler `docs/checklist-mise-en-ligne.md`.
+  Les numéros WhatsApp actuels sont des numéros de développement.
 
 ## WP-CLI
 ```bash

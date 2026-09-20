@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72" width="72" height="72" role="img" aria-label="Campus Connect">
+  <title>Campus Connect — icône</title>
+  <rect width="72" height="72" rx="16" fill="#0B3C7D"/>
+  <path d="M22 50 C 22 20, 50 20, 50 50" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="22" cy="50" r="6.5" fill="#FFFFFF"/>
+  <circle cx="50" cy="50" r="6.5" fill="#17A673"/>
+</svg>
