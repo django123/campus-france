@@ -72,6 +72,8 @@ shortcode. Elementor sert à la mise en page, pas à dupliquer des composants.
   pas des options : aucun attribut de shortcode ne les contourne.
 - Le bouton WhatsApp flottant est intégré au thème (Click to Chat est désactivé).
 - Page de contrôle visuel : **/styleguide/** (privée, connexion requise).
+  Captures pleine page en 1280 et 375 : `cd scripts && npm install && node captures.js`.
+  Les PNG ne sont pas versionnés, voir `docs/captures/README.md`.
 - Ce qui reste à construire à la main dans Elementor :
   `docs/gabarits-elementor.md`.
 

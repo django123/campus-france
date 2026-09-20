@@ -10,3 +10,10 @@ elementor-pro-*.zip
 # Les SVG de files/ ne diffèrent que par un manifeste C2PA, dessin identique.
 files/
 files.zip
+
+# Captures de contrôle : régénérables à la demande par scripts/captures.js.
+# Des PNG pleine page pèsent ~2 Mo et changent à chaque retouche de CSS.
+docs/captures/*.png
+
+# Dépendances de l'outil de capture.
+scripts/node_modules/
