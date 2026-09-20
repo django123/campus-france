@@ -76,6 +76,31 @@ if ( $supprimer ) {
 
 	WP_CLI::log( sprintf( '%d contenus de démonstration supprimés.', count( $demo ) ) );
 
+	/*
+	 * Les domaines de formation sont posés par ce script, contrairement aux
+	 * situations et aux types de partenaire qui relèvent de l'architecture
+	 * (scripts/structure.php). Ils repartent donc avec le reste — seuls ceux
+	 * portant la marque, jamais un domaine ajouté à la main.
+	 */
+	$termes_demo = get_terms( array(
+		'taxonomy'   => 'domaine',
+		'hide_empty' => false,
+		'fields'     => 'ids',
+		'meta_query' => array(
+			array(
+				'key'     => CC_META_DEMO,
+				'compare' => 'EXISTS',
+			),
+		),
+	) );
+
+	if ( ! is_wp_error( $termes_demo ) ) {
+		foreach ( $termes_demo as $terme_id ) {
+			wp_delete_term( $terme_id, 'domaine' );
+		}
+		WP_CLI::log( sprintf( '%d domaines de démonstration supprimés.', count( $termes_demo ) ) );
+	}
+
 	// Réglages : on ne remet à vide que ce que le seed avait posé et que
 	// personne n'a modifié depuis. Une valeur éditée à la main est conservée.
 	$poses    = get_option( 'cc_seed_reglages', array() );
@@ -303,6 +328,44 @@ function cc_seed_portrait_svg( $initiale, $fond ) {
 		esc_html( $initiale ),
 		$fond
 	);
+}
+
+/**
+ * Crée un terme de démonstration s'il manque, et le marque comme fictif.
+ *
+ * Un terme n'a pas de contenu HTML : il ne peut pas porter .cc-placeholder.
+ * La marque en méta de terme sert donc uniquement à la suppression.
+ *
+ * @param string $taxonomie
+ * @param string $slug
+ * @param string $nom
+ * @return int term_id, ou 0 en cas d'échec.
+ */
+function cc_seed_terme_demo( $taxonomie, $slug, $nom ) {
+	$terme = get_term_by( 'slug', $slug, $taxonomie );
+
+	if ( $terme ) {
+		$id = (int) $terme->term_id;
+	} else {
+		$cree = wp_insert_term( $nom, $taxonomie, array( 'slug' => $slug ) );
+
+		if ( is_wp_error( $cree ) ) {
+			WP_CLI::warning( sprintf( '%s / %s : %s', $taxonomie, $slug, $cree->get_error_message() ) );
+			return 0;
+		}
+
+		$id = (int) $cree['term_id'];
+
+		// Sans langue, Polylang crée un doublon suffixé « -fr » à la première
+		// affectation. Voir le commentaire détaillé dans scripts/structure.php.
+		if ( function_exists( 'pll_set_term_language' ) ) {
+			pll_set_term_language( $id, pll_default_language() );
+		}
+	}
+
+	update_term_meta( $id, CC_META_DEMO, '1' );
+
+	return $id;
 }
 
 /** Rattache un contenu à un terme, en créant le terme au besoin. */
@@ -644,7 +707,116 @@ foreach ( $destinations as $d ) {
 }
 
 /* ================================================================== *
- * 5. Réglages globaux
+ * 5. Formations et domaines
+ *
+ * Les intitulés sont des types de cursus courants, pas des formations
+ * inventées de toutes pièces : on ne fabrique pas de faux diplôme. Ce qui
+ * reste à valider, c'est le PÉRIMÈTRE — quelles filières et quels niveaux
+ * Campus Connect couvre réellement. D'où le marquage .cc-placeholder.
+ *
+ * Les domaines sont posés ici et non dans structure.php : contrairement aux
+ * situations (deux onglets de la page packs) et aux types de partenaire
+ * (trois bandes de la page partenaires), qui viennent des maquettes, cette
+ * liste-là n'est adossée à rien. Elle est provisoire et repart avec le seed.
+ * ================================================================== */
+
+$domaines = array(
+	'commerce-gestion'     => 'Commerce et gestion',
+	'ingenierie-sciences'  => 'Ingénierie et sciences',
+	'informatique'         => 'Informatique et numérique',
+	'sante-social'         => 'Santé et social',
+	'arts-design'          => 'Arts et design',
+	'droit-sciences-po'    => 'Droit et sciences politiques',
+);
+
+foreach ( $domaines as $slug => $nom ) {
+	cc_seed_terme_demo( 'domaine', $slug, $nom );
+}
+
+WP_CLI::log( sprintf( '%d domaines posés.', count( $domaines ) ) );
+
+$formations = array(
+	array(
+		'slug'    => 'bts-but-gestion',
+		'titre'   => 'BTS et BUT en gestion',
+		'domaine' => 'commerce-gestion',
+		'niveau'  => 'Bac +2 / Bac +3',
+	),
+	array(
+		'slug'    => 'licence-economie-gestion',
+		'titre'   => 'Licence en économie et gestion',
+		'domaine' => 'commerce-gestion',
+		'niveau'  => 'Bac +3',
+	),
+	array(
+		'slug'    => 'master-management',
+		'titre'   => 'Master en management',
+		'domaine' => 'commerce-gestion',
+		'niveau'  => 'Bac +5',
+	),
+	array(
+		'slug'    => 'licence-informatique',
+		'titre'   => 'Licence en informatique',
+		'domaine' => 'informatique',
+		'niveau'  => 'Bac +3',
+	),
+	array(
+		'slug'    => 'master-cybersecurite',
+		'titre'   => 'Master en cybersécurité',
+		'domaine' => 'informatique',
+		'niveau'  => 'Bac +5',
+	),
+	array(
+		'slug'    => 'cycle-ingenieur',
+		'titre'   => 'Cycle ingénieur',
+		'domaine' => 'ingenierie-sciences',
+		'niveau'  => 'Bac +5',
+	),
+	array(
+		'slug'    => 'licence-biologie',
+		'titre'   => 'Licence en sciences de la vie',
+		'domaine' => 'sante-social',
+		'niveau'  => 'Bac +3',
+	),
+	array(
+		'slug'    => 'bachelor-design',
+		'titre'   => 'Bachelor en design graphique',
+		'domaine' => 'arts-design',
+		'niveau'  => 'Bac +3',
+	),
+	array(
+		'slug'    => 'licence-droit',
+		'titre'   => 'Licence en droit',
+		'domaine' => 'droit-sciences-po',
+		'niveau'  => 'Bac +3',
+	),
+);
+
+foreach ( $formations as $f ) {
+	$id = cc_seed_post(
+		'formation',
+		$f['slug'],
+		$f['titre'],
+		cc_seed_contenu(
+			'Niveau visé : ' . $f['niveau'] . '. Descriptif à rédiger — débouchés, '
+			. 'prérequis, établissements concernés. À confirmer : cette filière fait-elle '
+			. 'partie du périmètre réellement accompagné ?'
+		)
+	);
+
+	// L'extrait alimente les vignettes de la page « Nos formations ».
+	wp_update_post( array(
+		'ID'           => $id,
+		'post_excerpt' => $f['niveau'] . ' — descriptif provisoire.',
+	) );
+
+	cc_seed_terme( $id, 'domaine', $f['domaine'] );
+
+	WP_CLI::log( sprintf( 'Formation : %s (%s)', $f['titre'], $f['domaine'] ) );
+}
+
+/* ================================================================== *
+ * 6. Réglages globaux
  *
  * Préfixés [DÉMO] : un réglage n'a pas de contenu HTML, il ne peut donc pas
  * porter la classe .cc-placeholder. Le préfixe joue le même rôle.
