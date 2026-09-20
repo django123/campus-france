@@ -63,7 +63,14 @@
  * Boutons
  * ------------------------------------------------------------------ */
 
-.cc-btn {
+/*
+ * `li.cc-btn > a` figure dans chaque sélecteur de bouton parce que le champ
+ * « Classes CSS » d'un élément de menu pose la classe sur le <li>, jamais sur
+ * le <a>. Sans ça, le cadre du bouton entoure l'élément de liste et la zone
+ * cliquable se limite au texte du lien. Le <li> est neutralisé plus bas.
+ */
+.cc-btn,
+li.cc-btn > a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -92,6 +99,7 @@
  * clic à la souris, tout en le gardant à la tabulation.
  */
 .cc-btn:focus-visible,
+li.cc-btn > a:focus-visible,
 .cc-lien-focus:focus-visible {
   outline: 2px solid var(--cc-bleu-nuit);
   outline-offset: 2px;
@@ -102,14 +110,17 @@
   outline-color: var(--cc-blanc);
 }
 
-.cc-btn--primaire {
+.cc-btn--primaire,
+li.cc-btn--primaire > a {
   background-color: var(--cc-bleu);
   color: var(--cc-blanc);
 }
 
-.cc-btn--primaire:hover {
+.cc-btn--primaire:hover,
+li.cc-btn--primaire > a:hover {
   background-color: var(--cc-bleu-nuit);
   color: var(--cc-blanc);
+  text-decoration: none;
 }
 
 .cc-btn--secondaire {
@@ -150,6 +161,91 @@
 .cc-btn--bloc {
   display: flex;
   width: 100%;
+}
+
+/* ------------------------------------------------------------------ *
+ * Bouton dans un menu de navigation
+ *
+ * Les règles ci-dessus ont donné l'apparence d'un bouton au <li> lui-même,
+ * puisqu'il porte la classe. On la lui retire : il redevient un simple
+ * conteneur, et c'est son lien qui est le bouton.
+ * ------------------------------------------------------------------ */
+
+li.cc-btn {
+  display: flex;
+  align-items: center;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+li.cc-btn > a,
+li.cc-btn > a:hover,
+li.cc-btn > a:focus {
+  /* Hello Elementor souligne les liens de menu au survol. */
+  text-decoration: none;
+}
+
+/* Décolle le bouton de la dernière entrée de menu. */
+li.cc-menu-cta {
+  margin-left: var(--cc-espace-sm);
+}
+
+/*
+ * Hello Elementor stylise les liens de menu avec une spécificité supérieure à
+ * la nôtre :
+ *   .site-navigation ul.menu li a            (0,2,3) — display et padding
+ *   .site-navigation-dropdown ul.menu li a   (0,2,3) — plus fond blanc, texte
+ *                                             gris et ombre interne
+ * Face à `li.cc-btn > a` (0,1,2), c'est Hello qui gagne : dans le menu déplié
+ * sur mobile, le bouton retombait à 21px de haut sur fond blanc. On redéclare
+ * donc les seules propriétés concernées, avec une spécificité suffisante.
+ */
+.site-navigation ul.menu li.cc-btn > a,
+.site-navigation-dropdown ul.menu li.cc-btn > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: var(--cc-espace-sm) var(--cc-espace-lg);
+  border-radius: var(--cc-radius);
+  box-shadow: none;
+}
+
+.site-navigation ul.menu li.cc-btn--primaire > a,
+.site-navigation-dropdown ul.menu li.cc-btn--primaire > a {
+  background-color: var(--cc-bleu);
+  color: var(--cc-blanc);
+}
+
+.site-navigation ul.menu li.cc-btn--primaire > a:hover,
+.site-navigation-dropdown ul.menu li.cc-btn--primaire > a:hover {
+  background-color: var(--cc-bleu-nuit);
+  color: var(--cc-blanc);
+}
+
+/*
+ * Menu déplié sur mobile : le bouton occupe toute la largeur, comme les autres
+ * entrées, au lieu de flotter à gauche.
+ */
+.site-navigation-dropdown li.cc-btn {
+  width: 100%;
+}
+
+.site-navigation-dropdown ul.menu li.cc-btn > a {
+  width: 100%;
+}
+
+.site-navigation-dropdown li.cc-menu-cta {
+  margin: var(--cc-espace-sm) 0 0;
+}
+
+/* Une entrée de menu qui n'est qu'une étiquette dépliante (« À propos ») : le
+   curseur ne doit pas laisser croire qu'elle mène quelque part. */
+li.cc-menu-sans-lien > a {
+  cursor: default;
 }
 
 /* Rangée de boutons : empilés sur mobile, côte à côte ensuite. */
@@ -212,6 +308,63 @@
   max-width: var(--cc-largeur);
   margin-inline: auto;
   padding-inline: var(--cc-gouttiere);
+}
+
+/* ------------------------------------------------------------------ *
+ * En-tête de page intérieure
+ *
+ * Donne de l'air au H1 des pages intérieures, qui sinon vient coller au menu.
+ * À poser sur la première section du gabarit de page Elementor.
+ * ------------------------------------------------------------------ */
+
+.cc-page-hero {
+  background-color: var(--cc-bleu-clair);
+  padding-block: var(--cc-espace-2xl);
+  margin-bottom: var(--cc-espace-2xl);
+}
+
+@media (min-width: 768px) {
+  .cc-page-hero { padding-block: var(--cc-espace-3xl); }
+}
+
+@media (min-width: 1024px) {
+  .cc-page-hero { padding-block: 5rem; }
+}
+
+.cc-page-hero__titre,
+.cc-page-hero h1 {
+  font-family: var(--cc-font-titre);
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--cc-bleu-nuit);
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .cc-page-hero__titre,
+  .cc-page-hero h1 { font-size: 2.25rem; }
+}
+
+@media (min-width: 1024px) {
+  .cc-page-hero__titre,
+  .cc-page-hero h1 { font-size: 2.75rem; }
+}
+
+/* Chapô éventuel sous le H1 : encre plutôt que gris, c'est du texte d'entrée. */
+.cc-page-hero__chapo {
+  max-width: 62ch;
+  margin: var(--cc-espace-md) 0 0;
+  color: var(--cc-encre);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+/* Fil d'Ariane éventuel (Rank Math). */
+.cc-page-hero .rank-math-breadcrumb {
+  margin-bottom: var(--cc-espace-sm);
+  font-size: .875rem;
+  color: var(--cc-gris);
 }
 
 /* ------------------------------------------------------------------ *

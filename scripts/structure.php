@@ -227,13 +227,19 @@ cc_entree_page( $menu_principal, $ids['faq'], '', $entree_apropos );
 // 4. Partenaires
 cc_entree_page( $menu_principal, $ids['partenaires'] );
 
-// Bouton de conversion, cible de tous les CTA du site.
+/*
+ * Bouton de conversion, cible de tous les CTA du site.
+ *
+ * Les classes du design system sont posées ici plutôt qu'à la main dans
+ * l'interface des menus : une relance du script les remettrait sinon à zéro.
+ * `cc-menu-cta` sert de crochet pour les ajustements propres au contexte menu.
+ */
 cc_entree_page(
 	$menu_principal,
 	$ids['je-veux-etudier-en-france'],
 	'Je veux étudier en France',
 	0,
-	'cc-menu-cta'
+	'cc-menu-cta cc-btn cc-btn--primaire'
 );
 
 WP_CLI::log( 'Menu principal : 4 entrées et le bouton « Je veux étudier en France ».' );

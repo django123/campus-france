@@ -97,14 +97,42 @@ if ( ! $kit || ! $kit->get_id() ) {
 	WP_CLI::error( 'Aucun kit Elementor actif. Ouvrir une fois l\'éditeur Elementor pour qu\'il en crée un.' );
 }
 
+/*
+ * Réglages du thème Hello Elementor.
+ *
+ * Hello ne stocke PAS ses options dans une option WordPress : il les lit dans
+ * les réglages du kit Elementor (voir hello_elementor_get_setting). C'est donc
+ * ici qu'on les pose, et non dans wp_options.
+ *
+ * - Accroche du site masquée dans l'en-tête et le pied de page : elle fait
+ *   doublon avec la baseline « ÉTUDIER EN FRANCE » déjà présente dans le logo.
+ *   On passe par l'option du thème, pas par un display:none ajouté au CSS.
+ * - Copyright en français. L'année est calculée à l'exécution : relancer ce
+ *   script en début d'année suffit à la mettre à jour. Hello stocke une chaîne
+ *   figée et n'expose aucun filtre pour la rendre dynamique.
+ */
+$reglages_hello = array(
+	'hello_header_tagline_display' => '',
+	'hello_footer_tagline_display' => '',
+	'hello_footer_copyright_text'  => sprintf(
+		'© %s Campus Connect — Tous droits réservés',
+		current_time( 'Y' )
+	),
+);
+
 // update_settings() fusionne avec les réglages existants et vide le cache du kit.
 $kit->update_settings(
-	array(
-		'system_colors'      => $couleurs,
-		'system_typography'  => $typographies,
-		'default_generic_fonts' => 'Segoe UI, Arial, sans-serif',
+	array_merge(
+		array(
+			'system_colors'         => $couleurs,
+			'system_typography'     => $typographies,
+			'default_generic_fonts' => 'Segoe UI, Arial, sans-serif',
+		),
+		$reglages_hello
 	)
 );
+
+WP_CLI::log( 'Accroche du site masquée (en-tête et pied de page), copyright en français.' );
 
 WP_CLI::log( sprintf( 'Kit #%d : couleurs et typographies globales écrites.', $kit->get_id() ) );
 
