@@ -4,3 +4,9 @@ wp-content/uploads/
 wp-content/plugins/elementor-pro*/
 elementor-pro-*.zip
 .DS_Store
+
+# Livraison de la charte (zip et fichiers sources). Ne part pas avec le projet :
+# ce qui sert est repris dans wp-content/themes/campus-connect/assets/brand/.
+# Les SVG de files/ ne diffèrent que par un manifeste C2PA, dessin identique.
+files/
+files.zip
