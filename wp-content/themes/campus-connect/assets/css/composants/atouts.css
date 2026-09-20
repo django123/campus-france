@@ -1,0 +1,36 @@
+/* [cc_atouts] — les quatre points forts. */
+
+.cc-atouts__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cc-espace-xs);
+}
+
+/* Repère coloré tenant lieu de picto tant que l'iconographie n'est pas arrêtée. */
+.cc-atouts__marque {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 auto;
+  border-radius: var(--cc-radius);
+  background-color: var(--cc-vert-clair);
+  border: 2px solid var(--cc-vert);
+  margin-bottom: var(--cc-espace-xs);
+}
+
+.cc-atouts__titre {
+  font-family: var(--cc-font-titre);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--cc-bleu-nuit);
+  margin: 0;
+}
+
+.cc-atouts__texte {
+  color: var(--cc-gris);
+  font-size: .9375rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cc-section--nuit .cc-atouts__titre { color: var(--cc-blanc); }
+.cc-section--nuit .cc-atouts__texte { color: var(--cc-bleu-clair); }

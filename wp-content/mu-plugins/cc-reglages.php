@@ -39,6 +39,62 @@ function cc_reglages_champs() {
 			'defaut'  => '',
 			'aide'    => 'Sert à calculer l\'ancienneté affichée sur le site. On stocke l\'année de départ, et non un nombre d\'années : un nombre écrit en dur serait faux au prochain anniversaire.',
 		),
+		'atout_1_titre'        => array(
+			'section' => 'atouts',
+			'label'   => 'Point fort 1 — titre',
+			'type'    => 'text',
+			'defaut'  => '',
+			'aide'    => 'Le premier est celui que retiendra un visiteur pressé.',
+		),
+		'atout_1_texte'        => array(
+			'section' => 'atouts',
+			'label'   => 'Point fort 1 — texte',
+			'type'    => 'textarea',
+			'defaut'  => '',
+			'aide'    => '',
+		),
+		'atout_2_titre'        => array(
+			'section' => 'atouts',
+			'label'   => 'Point fort 2 — titre',
+			'type'    => 'text',
+			'defaut'  => '',
+			'aide'    => '',
+		),
+		'atout_2_texte'        => array(
+			'section' => 'atouts',
+			'label'   => 'Point fort 2 — texte',
+			'type'    => 'textarea',
+			'defaut'  => '',
+			'aide'    => '',
+		),
+		'atout_3_titre'        => array(
+			'section' => 'atouts',
+			'label'   => 'Point fort 3 — titre',
+			'type'    => 'text',
+			'defaut'  => '',
+			'aide'    => '',
+		),
+		'atout_3_texte'        => array(
+			'section' => 'atouts',
+			'label'   => 'Point fort 3 — texte',
+			'type'    => 'textarea',
+			'defaut'  => '',
+			'aide'    => '',
+		),
+		'atout_4_titre'        => array(
+			'section' => 'atouts',
+			'label'   => 'Point fort 4 — titre',
+			'type'    => 'text',
+			'defaut'  => '',
+			'aide'    => '',
+		),
+		'atout_4_texte'        => array(
+			'section' => 'atouts',
+			'label'   => 'Point fort 4 — texte',
+			'type'    => 'textarea',
+			'defaut'  => '',
+			'aide'    => '',
+		),
 		'france_adresse'       => array(
 			'section' => 'france',
 			'label'   => 'Adresse',
@@ -122,6 +178,33 @@ function cc_annees_experience() {
 }
 
 /**
+ * Les quatre points forts, dans l'ordre.
+ *
+ * Un point fort sans titre est écarté : mieux vaut trois arguments tenus
+ * qu'un quatrième bloc vide dans la grille.
+ *
+ * @return array<int, array{titre:string, texte:string}>
+ */
+function cc_atouts() {
+	$atouts = array();
+
+	for ( $i = 1; $i <= 4; $i++ ) {
+		$titre = trim( (string) cc_reglage( 'atout_' . $i . '_titre' ) );
+
+		if ( $titre === '' ) {
+			continue;
+		}
+
+		$atouts[] = array(
+			'titre' => $titre,
+			'texte' => trim( (string) cc_reglage( 'atout_' . $i . '_texte' ) ),
+		);
+	}
+
+	return $atouts;
+}
+
+/**
  * Coordonnées d'une implantation.
  *
  * @param string $pays 'france' ou 'cameroun'.
@@ -164,6 +247,10 @@ add_action( 'admin_init', function () {
 		'agence'   => array(
 			'titre' => 'L\'agence',
 			'aide'  => 'Informations reprises sur l\'accueil et dans le pied de page.',
+		),
+		'atouts'   => array(
+			'titre' => 'Points forts',
+			'aide'  => 'Les quatre arguments affichés par [cc_atouts]. Un point fort sans titre n\'est pas affiché : laisser vide pour en montrer moins de quatre.',
 		),
 		'france'   => array(
 			'titre' => 'Implantation France',

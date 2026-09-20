@@ -1,0 +1,129 @@
+/*
+ * [cc_parcours] — frise des huit étapes.
+ *
+ * Mobile : une colonne, filet vertical à gauche.
+ * Desktop (1024px) : alternance gauche/droite de part et d'autre d'un axe central.
+ */
+
+.cc-parcours {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cc-parcours__etape {
+  position: relative;
+  padding-left: 3rem;
+  padding-bottom: var(--cc-espace-xl);
+}
+
+.cc-parcours__etape:last-child {
+  padding-bottom: 0;
+}
+
+/* Filet reliant une étape à la suivante. */
+.cc-parcours__etape::before {
+  content: "";
+  position: absolute;
+  left: 1.09375rem;
+  top: 2.25rem;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--cc-ligne);
+}
+
+.cc-parcours__etape:last-child::before {
+  display: none;
+}
+
+.cc-parcours__numero {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: var(--cc-bleu);
+  color: var(--cc-blanc);
+  font-family: var(--cc-font-titre);
+  font-size: .9375rem;
+  font-weight: 600;
+}
+
+.cc-parcours__titre {
+  font-family: var(--cc-font-titre);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--cc-bleu-nuit);
+  margin: .25rem 0 var(--cc-espace-xs);
+}
+
+.cc-parcours__texte {
+  color: var(--cc-gris);
+  font-size: .9375rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cc-parcours--compact .cc-parcours__etape {
+  padding-bottom: var(--cc-espace-lg);
+}
+
+.cc-section--nuit .cc-parcours__titre { color: var(--cc-blanc); }
+.cc-section--nuit .cc-parcours__texte { color: var(--cc-bleu-clair); }
+.cc-section--nuit .cc-parcours__etape::before { background-color: var(--cc-bleu); }
+
+@media (min-width: 1024px) {
+  .cc-parcours {
+    max-width: 960px;
+    margin-inline: auto;
+  }
+
+  /* Axe central continu. */
+  .cc-parcours::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    margin-left: -1px;
+    background-color: var(--cc-ligne);
+  }
+
+  .cc-parcours__etape {
+    width: 50%;
+    padding-left: 0;
+    padding-bottom: var(--cc-espace-xl);
+  }
+
+  .cc-parcours__etape::before {
+    display: none;
+  }
+
+  /* Étapes impaires à gauche de l'axe, paires à droite. */
+  .cc-parcours__etape:nth-child(odd) {
+    padding-right: 3.5rem;
+    text-align: right;
+  }
+
+  .cc-parcours__etape:nth-child(even) {
+    margin-left: 50%;
+    padding-left: 3.5rem;
+  }
+
+  .cc-parcours__etape:nth-child(odd) .cc-parcours__numero {
+    left: auto;
+    right: -1.125rem;
+  }
+
+  .cc-parcours__etape:nth-child(even) .cc-parcours__numero {
+    left: -1.125rem;
+  }
+
+  .cc-section--nuit .cc-parcours::before { background-color: var(--cc-bleu); }
+}

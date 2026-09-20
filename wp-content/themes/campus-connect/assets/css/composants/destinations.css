@@ -1,0 +1,76 @@
+/*
+ * [cc_destinations] — une destination active est cliquable, une destination
+ * « bientôt » ne l'est pas. Ouvrir un lien vers une offre qui n'existe pas
+ * crée une attente que Campus Connect ne peut pas tenir.
+ */
+
+.cc-destination {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cc-espace-xs);
+  height: 100%;
+}
+
+.cc-destination__nom {
+  font-family: var(--cc-font-titre);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--cc-bleu-nuit);
+  margin: 0;
+}
+
+.cc-destination__accroche {
+  color: var(--cc-gris);
+  font-size: .9375rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.cc-destination__etat {
+  display: inline-block;
+  align-self: flex-start;
+  margin-bottom: var(--cc-espace-xs);
+  padding: .125rem .5rem;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* Vert foncé sur vert clair : 4,78:1, au-dessus du seuil AA. Le vert vif
+   ne porte aucun texte, il ne sert que de bordure. */
+.cc-destination__etat--active {
+  background-color: var(--cc-vert-clair);
+  color: var(--cc-vert-fonce);
+  border: 1px solid var(--cc-vert);
+}
+
+.cc-destination__etat--bientot {
+  background-color: var(--cc-ligne);
+  color: var(--cc-encre);
+}
+
+/* Destination inactive : visuellement en retrait, mais toujours lisible.
+   Griser n'est pas une raison de descendre sous le seuil de contraste. */
+.cc-carte--destination-bientot {
+  background-color: var(--cc-bleu-pale);
+  box-shadow: none;
+}
+
+.cc-carte--destination-bientot .cc-destination__nom {
+  color: var(--cc-gris);
+}
+
+.cc-destination__lien {
+  text-decoration: none;
+}
+
+.cc-destination__lien:hover .cc-destination__nom {
+  text-decoration: underline;
+}
+
+.cc-destination__lien:focus-visible {
+  outline: 2px solid var(--cc-bleu-nuit);
+  outline-offset: 2px;
+}

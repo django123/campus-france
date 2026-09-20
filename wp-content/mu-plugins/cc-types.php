@@ -195,6 +195,28 @@ function cc_enregistrer_types() {
 		)
 	);
 
+	// --- Questions fréquentes ----------------------------------------------
+	// Un CPT plutôt qu'un répéteur ACF : le répéteur n'existe pas dans la
+	// version gratuite d'ACF, et une question est de toute façon un contenu
+	// à part entière — titre pour la question, éditeur pour la réponse.
+	register_post_type(
+		'faq',
+		array(
+			'labels'        => cc_labels_cpt( 'question', 'Questions fréquentes', 'f' ),
+			'description'   => 'Questions fréquentes. Le titre porte la question, le contenu la réponse.',
+			'public'        => true,
+			'has_archive'   => false,
+			'menu_position' => 25,
+			'menu_icon'     => 'dashicons-editor-help',
+			'supports'      => array( 'title', 'editor', 'page-attributes', 'revisions' ),
+			'show_in_rest'  => true,
+			'rewrite'       => array(
+				'slug'       => 'question',
+				'with_front' => false,
+			),
+		)
+	);
+
 	// --- Destinations ------------------------------------------------------
 	// Le statut actif / bientôt est un champ ACF, pas une taxonomie : c'est un
 	// état unique par destination, pas un classement. Voir acf-json/.
@@ -287,7 +309,7 @@ add_action( 'init', 'cc_enregistrer_taxonomies', 5 );
  * flush_rewrite_rules() sur init est coûteux et déconseillé.
  */
 function cc_verifier_reecritures() {
-	$version_actuelle = '2';
+	$version_actuelle = '3';
 
 	if ( get_option( 'cc_types_rewrite_version' ) === $version_actuelle ) {
 		return;

@@ -1,0 +1,86 @@
+/*
+ * Bouton WhatsApp flottant.
+ *
+ * Remplace l'extension Click to Chat : un bouton de trois lignes de CSS et
+ * un lien construit par cc_whatsapp_link() n'ont pas besoin d'une extension
+ * qui charge ses propres scripts sur toutes les pages.
+ *
+ * Le libellé est en --cc-encre et non en blanc : blanc sur le vert WhatsApp
+ * officiel tombe à 1,98:1, très en dessous du seuil AA. Le fond garde la
+ * couleur officielle pour rester reconnaissable.
+ */
+
+.cc-whatsapp-flottant {
+  position: fixed;
+  right: var(--cc-gouttiere);
+
+  /*
+   * env(safe-area-inset-bottom) dégage la barre de navigation iOS : sans ça,
+   * le bouton se retrouve sous la barre de gestes et devient intouchable sur
+   * les iPhone récents. La valeur de repli sert aux navigateurs sans support.
+   */
+  bottom: 1rem;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+
+  z-index: 9000;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--cc-espace-xs);
+
+  min-height: 48px;
+  padding: var(--cc-espace-sm) var(--cc-espace-md);
+
+  background-color: var(--cc-whatsapp);
+  color: var(--cc-encre);
+
+  font-family: var(--cc-font-texte);
+  font-size: .9375rem;
+  font-weight: 600;
+  text-decoration: none;
+
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(11, 60, 125, .22);
+  transition: filter var(--cc-transition), transform var(--cc-transition);
+}
+
+.cc-whatsapp-flottant:hover {
+  filter: brightness(0.93);
+  color: var(--cc-encre);
+}
+
+.cc-whatsapp-flottant:focus-visible {
+  outline: 2px solid var(--cc-bleu-nuit);
+  outline-offset: 2px;
+}
+
+.cc-whatsapp-flottant__icone {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  fill: currentColor;
+}
+
+/*
+ * Sur mobile, seul le picto est affiché : un libellé complet mangerait la
+ * largeur utile. Le nom reste lisible par les lecteurs d'écran via
+ * .cc-sr-only et l'aria-label du lien.
+ */
+.cc-whatsapp-flottant__texte {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .cc-whatsapp-flottant__texte {
+    display: inline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-whatsapp-flottant { transition: none; }
+}
+
+/* Un bouton flottant n'a aucun sens sur une feuille imprimée. */
+@media print {
+  .cc-whatsapp-flottant { display: none !important; }
+}

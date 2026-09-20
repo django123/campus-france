@@ -111,6 +111,20 @@ promesse de résultat (« visa garanti », « admission garantie »,
 - [ ] Mentions de sources et de dates sur les informations réglementaires
       (Campus France, procédures de visa) — elles changent chaque année.
 
+### Composants et gabarits
+
+- [ ] Ouvrir **/styleguide/** et vérifier qu'aucun composant n'est cassé.
+      Cette page est privée : la laisser privée, ou la supprimer avant la
+      mise en ligne.
+- [ ] Les trois gabarits Elementor sont construits et leurs conditions
+      d'affichage réglées (`docs/gabarits-elementor.md`).
+- [ ] Au moins un témoignage a son **accord écrit** coché, sinon le bloc
+      témoignages reste vide sur le site — c'est voulu, mais il faut le savoir.
+- [ ] Au moins un partenaire par bande a son **partenariat formalisé** coché,
+      même remarque.
+- [ ] Click to Chat reste **désactivé** : le bouton WhatsApp flottant est
+      intégré au thème, réactiver l'extension créerait un doublon.
+
 ### Technique
 
 - [ ] `SITE_URL` et `home` / `siteurl` sur le domaine de production, en HTTPS.

@@ -22,7 +22,7 @@ const CC_META_DEMO = '_cc_seed';
 
 /** Types de contenu susceptibles de porter du contenu de démonstration. */
 function cc_demo_types() {
-	return array( 'pack', 'temoignage', 'partenaire', 'formation', 'destination' );
+	return array( 'pack', 'temoignage', 'partenaire', 'formation', 'destination', 'faq' );
 }
 
 /**

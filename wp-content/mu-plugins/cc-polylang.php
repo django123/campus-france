@@ -22,6 +22,7 @@ add_filter( 'pll_get_post_types', function ( $types, $est_reglages ) {
 		'temoignage'  => 'temoignage',
 		'partenaire'  => 'partenaire',
 		'formation'   => 'formation',
+		'faq'         => 'faq',
 		'destination' => 'destination',
 	);
 
@@ -58,7 +59,7 @@ add_action( 'save_post', function ( $post_id, $post ) {
 		return;
 	}
 
-	$types = array( 'page', 'post', 'pack', 'temoignage', 'partenaire', 'formation', 'destination' );
+	$types = array( 'page', 'post', 'pack', 'temoignage', 'partenaire', 'formation', 'destination', 'faq' );
 	if ( ! in_array( $post->post_type, $types, true ) ) {
 		return;
 	}

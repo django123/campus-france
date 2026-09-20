@@ -1,0 +1,384 @@
+/*
+ * Campus Connect — socle du design system.
+ *
+ * Boutons, sections, cartes, titres : tout ce qui se répète d'un composant à
+ * l'autre. Les styles propres à un composant vivent dans composants/*.css et
+ * ne sont chargés que si le shortcode correspondant est utilisé.
+ *
+ * Règles
+ * ------
+ * - Aucune couleur en dur : uniquement les variables de assets/brand/brand-tokens.css.
+ * - Mobile-first. Deux points de rupture : 768px (tablette) et 1024px (desktop).
+ * - Le vert ne porte jamais de texte courant : blanc sur --cc-vert donne 3,12:1,
+ *   sous le seuil AA de 4,5:1. Il sert aux filets, pictos et bordures.
+ *
+ * Contrastes vérifiés (WCAG AA, texte courant 4,5:1)
+ * -------------------------------------------------
+ *   encre / blanc ................ 15,17:1
+ *   gris / blanc .................. 5,49:1
+ *   bleu / blanc ..................  5,75:1
+ *   bleu-nuit / blanc ............ 10,73:1
+ *   encre / bleu-clair ........... 13,29:1
+ *   gris / bleu-clair .............  4,81:1
+ *   blanc / bleu (bouton) ........  5,75:1
+ *   blanc / bleu-nuit ............ 10,73:1
+ *   bleu-clair / bleu-nuit .......  9,41:1
+ *   encre / whatsapp ..............  7,65:1
+ *
+ * Le bouton WhatsApp porte donc du texte ENCRE, pas du blanc : blanc sur le
+ * vert WhatsApp officiel tombe à 1,98:1. La couleur de fond reste la couleur
+ * officielle, pour que le bouton reste reconnaissable.
+ */
+
+/* ------------------------------------------------------------------ *
+ * Échelle d'espacement
+ *
+ * Locale au design system : brand-tokens.css est la source des couleurs et
+ * des polices, pas du rythme vertical.
+ * ------------------------------------------------------------------ */
+
+:root {
+  --cc-espace-xs:  .5rem;
+  --cc-espace-sm:  .75rem;
+  --cc-espace-md:  1rem;
+  --cc-espace-lg:  1.5rem;
+  --cc-espace-xl:  2rem;
+  --cc-espace-2xl: 3rem;
+  --cc-espace-3xl: 4rem;
+
+  /* Gouttière latérale sur mobile. */
+  --cc-gouttiere: 1rem;
+
+  /* Largeur de lecture maximale. */
+  --cc-largeur: 1200px;
+
+  --cc-transition: 150ms ease-in-out;
+}
+
+@media (min-width: 768px) {
+  :root { --cc-gouttiere: 1.5rem; }
+}
+
+/* ------------------------------------------------------------------ *
+ * Boutons
+ * ------------------------------------------------------------------ */
+
+.cc-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--cc-espace-xs);
+
+  /* 44px : cible tactile minimale recommandée. */
+  min-height: 44px;
+  padding: var(--cc-espace-sm) var(--cc-espace-lg);
+
+  font-family: var(--cc-font-texte);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  text-decoration: none;
+
+  border: 2px solid transparent;
+  border-radius: var(--cc-radius);
+  cursor: pointer;
+  transition: background-color var(--cc-transition), color var(--cc-transition),
+              border-color var(--cc-transition);
+}
+
+/*
+ * Focus visible au clavier uniquement : :focus-visible évite le contour au
+ * clic à la souris, tout en le gardant à la tabulation.
+ */
+.cc-btn:focus-visible,
+.cc-lien-focus:focus-visible {
+  outline: 2px solid var(--cc-bleu-nuit);
+  outline-offset: 2px;
+}
+
+/* Sur fond sombre, un contour bleu nuit serait invisible. */
+.cc-section--nuit .cc-btn:focus-visible {
+  outline-color: var(--cc-blanc);
+}
+
+.cc-btn--primaire {
+  background-color: var(--cc-bleu);
+  color: var(--cc-blanc);
+}
+
+.cc-btn--primaire:hover {
+  background-color: var(--cc-bleu-nuit);
+  color: var(--cc-blanc);
+}
+
+.cc-btn--secondaire {
+  background-color: transparent;
+  color: var(--cc-bleu);
+  border-color: var(--cc-bleu);
+}
+
+.cc-btn--secondaire:hover {
+  background-color: var(--cc-bleu-clair);
+  color: var(--cc-bleu-nuit);
+  border-color: var(--cc-bleu-nuit);
+}
+
+/* Sur fond bleu nuit, la variante contour passe en blanc. */
+.cc-section--nuit .cc-btn--secondaire {
+  color: var(--cc-blanc);
+  border-color: var(--cc-blanc);
+}
+
+.cc-section--nuit .cc-btn--secondaire:hover {
+  background-color: var(--cc-blanc);
+  color: var(--cc-bleu-nuit);
+}
+
+.cc-btn--whatsapp {
+  background-color: var(--cc-whatsapp);
+  /* Encre et non blanc : voir la note de contraste en tête de fichier. */
+  color: var(--cc-encre);
+}
+
+.cc-btn--whatsapp:hover {
+  /* Assombrissement relatif : aucune couleur nouvelle introduite. */
+  filter: brightness(0.93);
+  color: var(--cc-encre);
+}
+
+.cc-btn--bloc {
+  display: flex;
+  width: 100%;
+}
+
+/* Rangée de boutons : empilés sur mobile, côte à côte ensuite. */
+.cc-btn-rangee {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cc-espace-sm);
+}
+
+@media (min-width: 768px) {
+  .cc-btn-rangee {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Sections et conteneur
+ * ------------------------------------------------------------------ */
+
+.cc-section {
+  padding-block: var(--cc-espace-2xl);
+}
+
+@media (min-width: 768px) {
+  .cc-section { padding-block: var(--cc-espace-3xl); }
+}
+
+@media (min-width: 1024px) {
+  .cc-section { padding-block: 5rem; }
+}
+
+.cc-section--bleue {
+  background-color: var(--cc-bleu-clair);
+}
+
+.cc-section--pale {
+  background-color: var(--cc-bleu-pale);
+}
+
+.cc-section--nuit {
+  background-color: var(--cc-bleu-nuit);
+  color: var(--cc-bleu-clair);
+}
+
+.cc-section--nuit h1,
+.cc-section--nuit h2,
+.cc-section--nuit h3,
+.cc-section--nuit h4 {
+  color: var(--cc-blanc);
+}
+
+.cc-section--nuit a:not(.cc-btn) {
+  color: var(--cc-blanc);
+}
+
+.cc-container {
+  width: 100%;
+  max-width: var(--cc-largeur);
+  margin-inline: auto;
+  padding-inline: var(--cc-gouttiere);
+}
+
+/* ------------------------------------------------------------------ *
+ * Titres de section
+ *
+ * Un filet vert court au-dessus du titre. Le vert ne porte ici aucun texte :
+ * c'est un aplat décoratif, son contraste n'entre pas en jeu.
+ * ------------------------------------------------------------------ */
+
+.cc-titre-section {
+  font-family: var(--cc-font-titre);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--cc-bleu-nuit);
+  margin-block: 0 var(--cc-espace-lg);
+}
+
+.cc-titre-section::before {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: var(--cc-vert);
+  margin-bottom: var(--cc-espace-sm);
+}
+
+.cc-titre-section--centre {
+  text-align: center;
+}
+
+.cc-titre-section--centre::before {
+  margin-inline: auto;
+}
+
+.cc-section--nuit .cc-titre-section {
+  color: var(--cc-blanc);
+}
+
+@media (min-width: 768px) {
+  .cc-titre-section { font-size: 1.875rem; }
+}
+
+@media (min-width: 1024px) {
+  .cc-titre-section { font-size: 2.25rem; }
+}
+
+/* Chapô sous un titre de section. */
+.cc-chapo {
+  max-width: 60ch;
+  margin-block: calc(var(--cc-espace-lg) * -1) var(--cc-espace-xl);
+  color: var(--cc-gris);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.cc-titre-section--centre + .cc-chapo {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.cc-section--nuit .cc-chapo {
+  color: var(--cc-bleu-clair);
+}
+
+/* ------------------------------------------------------------------ *
+ * Cartes
+ * ------------------------------------------------------------------ */
+
+.cc-carte {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--cc-blanc);
+  border: 1px solid var(--cc-ligne);
+  border-radius: var(--cc-radius);
+  box-shadow: var(--cc-ombre);
+  padding: var(--cc-espace-lg);
+  color: var(--cc-encre);
+}
+
+.cc-carte__titre {
+  font-family: var(--cc-font-titre);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--cc-bleu-nuit);
+  margin-block: 0 var(--cc-espace-xs);
+}
+
+.cc-carte__soustitre {
+  color: var(--cc-gris);
+  font-size: .9375rem;
+  line-height: 1.5;
+  margin-block: 0 var(--cc-espace-md);
+}
+
+/* La carte pack pousse ses boutons en bas, pour aligner les cartes entre elles. */
+.cc-carte--pack {
+  border-top: 4px solid var(--cc-vert);
+  height: 100%;
+}
+
+.cc-carte--pack .cc-carte__pied {
+  margin-top: auto;
+  padding-top: var(--cc-espace-lg);
+}
+
+.cc-carte--temoignage {
+  background-color: var(--cc-bleu-pale);
+}
+
+.cc-carte--atout {
+  border: 0;
+  box-shadow: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Grille générique, reprise par plusieurs composants. */
+.cc-grille {
+  display: grid;
+  gap: var(--cc-espace-lg);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .cc-grille--2,
+  .cc-grille--3,
+  .cc-grille--4 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .cc-grille--3 { grid-template-columns: repeat(3, 1fr); }
+  .cc-grille--4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ------------------------------------------------------------------ *
+ * Utilitaires
+ * ------------------------------------------------------------------ */
+
+/* Visible uniquement pour les lecteurs d'écran. */
+.cc-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Message affiché quand un composant n'a rien à montrer. Réservé au
+   back-office et au styleguide : jamais destiné au visiteur. */
+.cc-vide {
+  border: 1px dashed var(--cc-ligne);
+  border-radius: var(--cc-radius);
+  padding: var(--cc-espace-lg);
+  color: var(--cc-gris);
+  font-size: .9375rem;
+  text-align: center;
+}
+
+@media print {
+  .cc-section--nuit {
+    background-color: transparent;
+    color: var(--cc-encre);
+  }
+}

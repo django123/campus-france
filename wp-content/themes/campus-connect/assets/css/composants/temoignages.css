@@ -1,0 +1,40 @@
+/* [cc_temoignages] — seuls les témoignages avec accord écrit sont rendus. */
+
+.cc-temoignage__citation {
+  margin: 0 0 var(--cc-espace-md);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--cc-encre);
+  quotes: "\00AB\00A0" "\00A0\00BB";
+}
+
+.cc-temoignage__citation::before { content: open-quote; }
+.cc-temoignage__citation::after  { content: close-quote; }
+
+.cc-temoignage__auteur {
+  display: flex;
+  align-items: center;
+  gap: var(--cc-espace-sm);
+  margin-top: auto;
+}
+
+.cc-temoignage__portrait {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.cc-temoignage__prenom {
+  font-family: var(--cc-font-titre);
+  font-weight: 600;
+  font-size: .9375rem;
+  color: var(--cc-bleu-nuit);
+}
+
+.cc-temoignage__origine {
+  display: block;
+  color: var(--cc-gris);
+  font-size: .8125rem;
+}

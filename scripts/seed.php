@@ -816,7 +816,59 @@ foreach ( $formations as $f ) {
 }
 
 /* ================================================================== *
- * 6. Réglages globaux
+ * 6. Questions fréquentes
+ *
+ * Les réponses restent au conditionnel sur tout ce qui dépend d'une décision
+ * administrative : une FAQ est lue comme un engagement, et la règle du projet
+ * interdit toute promesse de résultat.
+ * ================================================================== */
+
+$questions = array(
+	array(
+		'slug'     => 'faq-evaluation-gratuite',
+		'question' => 'La première évaluation est-elle vraiment gratuite ?',
+		'reponse'  => 'Réponse à valider. Préciser ce que couvre l\'évaluation, sa durée, et s\'il existe une condition — c\'est la promesse d\'entrée, elle doit être tenable telle quelle.',
+		'ordre'    => 10,
+	),
+	array(
+		'slug'     => 'faq-garantie-visa',
+		'question' => 'Garantissez-vous l\'obtention du visa ?',
+		'reponse'  => 'Non. L\'admission comme le visa relèvent de décisions d\'établissements et d\'autorités consulaires, sur lesquelles aucun accompagnateur n\'a de pouvoir. Campus Connect prépare le dossier, explique la procédure et vous entraîne aux entretiens. Toute structure qui vous garantit un résultat vous trompe.',
+		'ordre'    => 20,
+	),
+	array(
+		'slug'     => 'faq-tarifs',
+		'question' => 'Quels sont vos tarifs ?',
+		'reponse'  => 'Réponse à rédiger. Les montants ne sont pas affichés sur le site : expliquer que l\'offre est établie après l\'évaluation, en fonction du pack retenu et de la situation.',
+		'ordre'    => 30,
+	),
+	array(
+		'slug'     => 'faq-delais',
+		'question' => 'Quand faut-il commencer les démarches ?',
+		'reponse'  => 'Réponse à rédiger, avec les échéances réelles de la campagne Campus France. Penser à dater l\'information : ce calendrier change chaque année.',
+		'ordre'    => 40,
+	),
+	array(
+		'slug'     => 'faq-hors-france',
+		'question' => 'Accompagnez-vous vers le Canada ou l\'Allemagne ?',
+		'reponse'  => 'Pas encore. Ces destinations sont en préparation. Aujourd\'hui, l\'accompagnement porte uniquement sur la France.',
+		'ordre'    => 50,
+	),
+);
+
+foreach ( $questions as $q ) {
+	$id = cc_seed_post( 'faq', $q['slug'], $q['question'], cc_seed_contenu( $q['reponse'] ) );
+
+	wp_update_post( array(
+		'ID'         => $id,
+		'menu_order' => $q['ordre'],
+	) );
+
+	WP_CLI::log( sprintf( 'Question : %s', $q['question'] ) );
+}
+
+/* ================================================================== *
+ * 7. Réglages globaux
  *
  * Préfixés [DÉMO] : un réglage n'a pas de contenu HTML, il ne peut donc pas
  * porter la classe .cc-placeholder. Le préfixe joue le même rôle.
@@ -825,6 +877,22 @@ foreach ( $formations as $f ) {
 $reglages_demo = array(
 	// 2019 donne l'ancienneté annoncée dans les maquettes (« +7 ans »).
 	'annee_debut_activite' => '2019',
+
+	/*
+	 * Les quatre titres viennent des maquettes, donc du cahier des charges, et
+	 * sont posés dans l'ordre du brief. Les textes d'appui, eux, restent à
+	 * écrire : leur formulation le dit explicitement, un préfixe « [DÉMO] »
+	 * serait redondant.
+	 */
+	'atout_1_titre'        => 'Établissements publics et privés',
+	'atout_1_texte'        => 'Phrase d\'appui à rédiger : l\'éventail réellement couvert, sans citer de nom d\'établissement à ce stade.',
+	'atout_2_titre'        => 'Quel que soit votre parcours',
+	'atout_2_texte'        => 'Phrase d\'appui à rédiger : bac, licence en cours, réorientation, reprise d\'études.',
+	'atout_3_titre'        => 'Réseau d\'écoles partenaires',
+	'atout_3_texte'        => 'Phrase d\'appui à rédiger : la nature du réseau, et le renvoi vers la page Partenaires.',
+	'atout_4_titre'        => 'Partenaires assurance AVI et logement',
+	'atout_4_texte'        => 'Phrase d\'appui à rédiger : les démarches couvertes une fois l\'admission obtenue.',
+
 	'france_adresse'       => '[DÉMO] Adresse à renseigner, France',
 	'france_telephone'     => '[DÉMO] +33 0 00 00 00 00',
 	'france_email'         => '',

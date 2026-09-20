@@ -1,0 +1,44 @@
+/*
+ * [cc_packs] — grille des packs.
+ *
+ * Aucune zone n'est réservée à un tarif. La règle du projet garde les prix en
+ * interne, et une case laissée libre « en attendant » déséquilibrerait la
+ * carte le jour où on décide de ne jamais la remplir.
+ */
+
+.cc-packs__prestations {
+  list-style: none;
+  margin: 0 0 var(--cc-espace-md);
+  padding: 0;
+}
+
+.cc-packs__prestation {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: var(--cc-espace-xs);
+  font-size: .9375rem;
+  line-height: 1.5;
+  color: var(--cc-encre);
+}
+
+/* Chevron vert décoratif : aucun texte ne repose dessus, son contraste
+   n'entre donc pas dans le calcul AA. */
+.cc-packs__prestation::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .4em;
+  width: .5rem;
+  height: .5rem;
+  border-right: 2px solid var(--cc-vert);
+  border-bottom: 2px solid var(--cc-vert);
+  transform: rotate(-45deg);
+}
+
+.cc-packs__pied .cc-btn {
+  width: 100%;
+}
+
+.cc-packs__pied .cc-btn + .cc-btn {
+  margin-top: var(--cc-espace-sm);
+}

@@ -1,0 +1,76 @@
+/*
+ * [cc_faq] — accordéon.
+ *
+ * Bâti sur <details>/<summary> : le pliage, le clavier et l'annonce aux
+ * lecteurs d'écran sont gérés par le navigateur. Aucun JavaScript, donc rien
+ * qui puisse casser et laisser les réponses inaccessibles.
+ */
+
+.cc-faq {
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+.cc-faq__item {
+  border: 1px solid var(--cc-ligne);
+  border-radius: var(--cc-radius);
+  background-color: var(--cc-blanc);
+  margin-bottom: var(--cc-espace-sm);
+}
+
+.cc-faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--cc-espace-md);
+  min-height: 44px;
+  padding: var(--cc-espace-md);
+  cursor: pointer;
+  font-family: var(--cc-font-titre);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--cc-bleu-nuit);
+  list-style: none;
+}
+
+/* Masque le triangle natif, remplacé par le chevron ci-dessous. */
+.cc-faq__question::-webkit-details-marker { display: none; }
+
+.cc-faq__question:focus-visible {
+  outline: 2px solid var(--cc-bleu-nuit);
+  outline-offset: 2px;
+}
+
+.cc-faq__question:hover {
+  background-color: var(--cc-bleu-pale);
+}
+
+.cc-faq__chevron {
+  flex: 0 0 auto;
+  width: .625rem;
+  height: .625rem;
+  border-right: 2px solid var(--cc-bleu);
+  border-bottom: 2px solid var(--cc-bleu);
+  transform: rotate(45deg);
+  transition: transform var(--cc-transition);
+  margin-top: -.25rem;
+}
+
+.cc-faq__item[open] .cc-faq__chevron {
+  transform: rotate(-135deg);
+  margin-top: .125rem;
+}
+
+.cc-faq__reponse {
+  padding: 0 var(--cc-espace-md) var(--cc-espace-md);
+  color: var(--cc-encre);
+  font-size: .9375rem;
+  line-height: 1.7;
+}
+
+.cc-faq__reponse > :first-child { margin-top: 0; }
+.cc-faq__reponse > :last-child  { margin-bottom: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-faq__chevron { transition: none; }
+}

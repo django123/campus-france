@@ -48,6 +48,37 @@ Les trois scripts sont idempotents : les relancer ne crée pas de doublon.
 `structure.php` ne touche jamais au contenu rédigé dans les pages, il ne
 reconstruit que les menus.
 
+## Design system et composants
+
+Tout élément répété sur plusieurs pages est codé une fois et exposé en
+shortcode. Elementor sert à la mise en page, pas à dupliquer des composants.
+
+| Shortcode | Rend |
+|---|---|
+| `[cc_atouts]` | Les 4 points forts (Réglages → Campus Connect) |
+| `[cc_parcours compact="1"]` | La frise des 8 étapes |
+| `[cc_packs situation="pre\|post"]` | La grille des packs, sans aucun tarif |
+| `[cc_temoignages limite="3"]` | Uniquement ceux avec accord écrit |
+| `[cc_partenaires type="..."]` | Uniquement les partenariats formalisés |
+| `[cc_destinations]` | France cliquable, Canada et Allemagne grisées |
+| `[cc_faq]` | Accordéon natif `details`/`summary` |
+| `[cc_cta_final]` | Le rappel des deux CTA |
+
+- CSS : le socle est dans `assets/css/components.css` (importé par `style.css`),
+  les styles propres à un composant dans `assets/css/composants/` et **mis en
+  file seulement quand le shortcode est utilisé**.
+- Gabarits surchargeables : `template-parts/cc-*.php` dans le thème enfant.
+- Les filtres sur l'accord écrit et le partenariat formalisé sont des **règles**,
+  pas des options : aucun attribut de shortcode ne les contourne.
+- Le bouton WhatsApp flottant est intégré au thème (Click to Chat est désactivé).
+- Page de contrôle visuel : **/styleguide/** (privée, connexion requise).
+- Ce qui reste à construire à la main dans Elementor :
+  `docs/gabarits-elementor.md`.
+
+Contrastes vérifiés WCAG AA sur toutes les combinaisons texte/fond. Deux
+conséquences : le vert ne porte jamais de texte courant, et le bouton WhatsApp
+a un libellé en encre et non en blanc (blanc sur le vert WhatsApp = 1,98:1).
+
 ## Contenus
 
 | Type | Taxonomie | Champs ACF |

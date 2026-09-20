@@ -10,6 +10,11 @@ Text Domain: campus-connect
    Les couleurs globales Elementor reprennent exactement ces valeurs. */
 @import url("assets/brand/brand-tokens.css");
 
+/* Socle du design system : boutons, sections, cartes, titres.
+   Les styles propres à un composant sont dans assets/css/composants/ et ne
+   sont mis en file que lorsque le shortcode correspondant est utilisé. */
+@import url("assets/css/components.css");
+
 /* Les @font-face sont chargés à part (handle campus-connect-fonts, voir
    functions.php) pour ne pas retarder les polices derrière un import chaîné. */
 

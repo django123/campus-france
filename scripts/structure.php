@@ -280,7 +280,159 @@ if ( function_exists( 'PLL' ) && PLL() ) {
 }
 
 /* ------------------------------------------------------------------ *
- * 7. Permaliens
+ * 7. Page de contrôle visuel « Styleguide »
+ *
+ * Page PRIVÉE : elle n'existe que pour vérifier d'un coup d'œil qu'aucun
+ * composant n'est cassé. Son contenu est régénéré à chaque exécution, à la
+ * différence des neuf pages du site, auxquelles le script ne touche jamais.
+ *
+ * Les shortcodes affichés en légende sont écrits [[entre doubles crochets]] :
+ * c'est la façon dont WordPress échappe un shortcode pour le montrer au lieu
+ * de l'exécuter.
+ * ------------------------------------------------------------------ */
+
+/**
+ * Un bloc du styleguide : titre, légende, puis le rendu.
+ *
+ * @param string $titre
+ * @param string $code    Shortcode à montrer en légende, sans crochets.
+ * @param string $rendu   Contenu à rendre (shortcode réel ou HTML).
+ * @param string $note    Remarque facultative.
+ * @return string
+ */
+function cc_bloc_styleguide( $titre, $code, $rendu, $note = '' ) {
+	$html  = '<h2 class="cc-titre-section">' . esc_html( $titre ) . '</h2>';
+	$html .= '<p style="font-family:monospace;background:#F5F9FE;border:1px solid #DCE4EC;'
+		. 'border-radius:6px;padding:.5rem .75rem;display:inline-block;font-size:.875rem">';
+	$html .= $code !== '' ? '[[' . esc_html( $code ) . ']]' : '<em>HTML direct, sans shortcode</em>';
+	$html .= '</p>';
+
+	if ( $note !== '' ) {
+		$html .= '<p style="color:#5A6B7B;font-size:.9375rem">' . esc_html( $note ) . '</p>';
+	}
+
+	$html .= $rendu;
+	$html .= '<hr style="margin:3rem 0;border:0;border-top:1px solid #DCE4EC">';
+
+	return $html;
+}
+
+$sg  = '<p>Page de contrôle interne. Chaque bloc montre un composant et le '
+	. 'shortcode qui le produit. Si quelque chose casse, ça se voit ici en premier.</p>';
+$sg .= '<hr style="margin:2rem 0;border:0;border-top:1px solid #DCE4EC">';
+
+$sg .= cc_bloc_styleguide(
+	'Boutons',
+	'',
+	'<div class="cc-btn-rangee">'
+	. '<a class="cc-btn cc-btn--primaire" href="#">Action principale</a>'
+	. '<a class="cc-btn cc-btn--secondaire" href="#">Action secondaire</a>'
+	. '<a class="cc-btn cc-btn--whatsapp" href="#">Discuter sur WhatsApp</a>'
+	. '</div>',
+	'Tabuler jusqu\'aux boutons pour vérifier le contour de focus (2px, décalé de 2px). '
+	. 'Le libellé WhatsApp est en encre et non en blanc : blanc sur le vert WhatsApp donne 1,98:1.'
+);
+
+$sg .= cc_bloc_styleguide(
+	'Titre de section',
+	'',
+	'<h3 class="cc-titre-section">Titre avec filet vert</h3>'
+	. '<h3 class="cc-titre-section cc-titre-section--centre">Variante centrée</h3>'
+);
+
+$sg .= cc_bloc_styleguide( 'Points forts', 'cc_atouts', '[cc_atouts]' );
+
+$sg .= cc_bloc_styleguide(
+	'Parcours en 8 étapes',
+	'cc_parcours',
+	'[cc_parcours]',
+	'Alternance gauche/droite à partir de 1024px, colonne unique en dessous.'
+);
+
+$sg .= cc_bloc_styleguide( 'Parcours, version compacte', 'cc_parcours compact="1"', '[cc_parcours compact="1"]' );
+
+$sg .= cc_bloc_styleguide(
+	'Packs pré-admission',
+	'cc_packs situation="pre"',
+	'[cc_packs situation="pre"]',
+	'Aucun tarif, et aucune zone réservée pour en accueillir un.'
+);
+
+$sg .= cc_bloc_styleguide( 'Packs post-admission', 'cc_packs situation="post"', '[cc_packs situation="post"]' );
+
+$sg .= cc_bloc_styleguide(
+	'Témoignages',
+	'cc_temoignages limite="3"',
+	'[cc_temoignages limite="3"][cc_exemple composant="temoignages"]',
+	'Seuls les témoignages dont l\'accord écrit est coché sont rendus. Sur le contenu '
+	. 'de démonstration, aucun ne l\'est : le bloc doit donc annoncer qu\'il n\'a rien à montrer.'
+);
+
+$sg .= cc_bloc_styleguide(
+	'Partenaires, tous types',
+	'cc_partenaires',
+	'[cc_partenaires][cc_exemple composant="partenaires"]',
+	'Même règle : seuls les partenariats formalisés apparaissent.'
+);
+
+$sg .= cc_bloc_styleguide( 'Partenaires, logement seulement', 'cc_partenaires type="logement"', '[cc_partenaires type="logement"]' );
+
+$sg .= cc_bloc_styleguide(
+	'Destinations',
+	'cc_destinations',
+	'[cc_destinations]',
+	'La France est cliquable, le Canada et l\'Allemagne ne le sont pas.'
+);
+
+$sg .= cc_bloc_styleguide(
+	'Questions fréquentes',
+	'cc_faq',
+	'[cc_faq]',
+	'Accordéon natif (details/summary) : pliage, clavier et annonce gérés sans JavaScript.'
+);
+
+$sg .= cc_bloc_styleguide( 'Rappel des CTA', 'cc_cta_final', '[cc_cta_final texte="Rappel de la promesse en une phrase."]' );
+
+$sg .= cc_bloc_styleguide(
+	'Fonds de section',
+	'',
+	'<div class="cc-section cc-section--bleue"><div class="cc-container">'
+	. '<h3 class="cc-titre-section">Section bleue</h3>'
+	. '<p>Texte courant sur fond bleu clair — 13,29:1.</p></div></div>'
+	. '<div class="cc-section cc-section--nuit"><div class="cc-container">'
+	. '<h3 class="cc-titre-section">Section nuit</h3>'
+	. '<p>Texte clair sur bleu nuit — 9,41:1.</p>'
+	. '<div class="cc-btn-rangee"><a class="cc-btn cc-btn--secondaire" href="#">Bouton sur fond sombre</a></div>'
+	. '</div></div>'
+);
+
+$styleguide = get_page_by_path( 'styleguide', OBJECT, 'page' );
+
+$donnees_sg = array(
+	'post_type'    => 'page',
+	'post_title'   => 'Styleguide',
+	'post_name'    => 'styleguide',
+	'post_status'  => 'private',
+	'post_content' => $sg,
+);
+
+if ( $styleguide ) {
+	$donnees_sg['ID'] = $styleguide->ID;
+}
+
+$id_sg = wp_insert_post( $donnees_sg, true );
+
+if ( is_wp_error( $id_sg ) ) {
+	WP_CLI::warning( 'Styleguide : ' . $id_sg->get_error_message() );
+} else {
+	if ( function_exists( 'pll_set_post_language' ) ) {
+		pll_set_post_language( $id_sg, 'fr' );
+	}
+	WP_CLI::log( sprintf( 'Styleguide (privée) : %s', get_permalink( $id_sg ) ) );
+}
+
+/* ------------------------------------------------------------------ *
+ * 8. Permaliens
  * ------------------------------------------------------------------ */
 
 if ( ! get_option( 'permalink_structure' ) ) {

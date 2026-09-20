@@ -1,0 +1,22 @@
+/* [cc_cta_final] — bloc de rappel des deux CTA, en bas de page. */
+
+.cc-cta-final {
+  text-align: center;
+}
+
+.cc-cta-final__texte {
+  max-width: 56ch;
+  margin: 0 auto var(--cc-espace-xl);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+}
+
+.cc-cta-final .cc-btn-rangee {
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .cc-cta-final .cc-btn {
+    min-width: 16rem;
+  }
+}
