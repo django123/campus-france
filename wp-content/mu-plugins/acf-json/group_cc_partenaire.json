@@ -1,0 +1,73 @@
+{
+    "key": "group_cc_partenaire",
+    "title": "Partenaire — contenu",
+    "fields": [
+        {
+            "key": "field_cc_partenaire_logo",
+            "label": "Logo",
+            "name": "logo",
+            "type": "image",
+            "instructions": "SVG ou PNG sur fond transparent. Afficher le logo d'un tiers suppose son autorisation écrite.",
+            "required": 0,
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all",
+            "mime_types": "svg,png,jpg,jpeg,webp",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_cc_partenaire_site",
+            "label": "Site web",
+            "name": "site_web",
+            "type": "url",
+            "instructions": "Adresse complète, https:// compris.",
+            "required": 0,
+            "placeholder": "https://",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_cc_partenaire_formalise",
+            "label": "Partenariat formalisé",
+            "name": "partenariat_formalise",
+            "type": "true_false",
+            "instructions": "À cocher uniquement si une convention est signée. Un logo posé après un simple contact commercial laisse croire à un partenariat qui n'existe pas. Voir cc_partenaire_affichable().",
+            "required": 0,
+            "message": "Convention signée",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Oui",
+            "ui_off_text": "Non",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "partenaire"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "N'afficher que les partenariats formalisés.",
+    "show_in_rest": 1
+}

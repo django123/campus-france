@@ -57,8 +57,23 @@ Aucune page publiée ne doit conserver d'élément portant la classe
 `cc-placeholder` : ce sont les contenus fictifs (faux témoignages, chiffres
 provisoires, textes de remplissage) posés pendant la maquette.
 
-- Ils se repèrent à l'œil : fond rayé jaune, bordure orange pointillée,
-  étiquette « CONTENU FICTIF ».
+**Le gros du lot part en une commande** — packs, témoignages, partenaires,
+destinations et logos de démonstration créés par le script de seed :
+
+```bash
+docker compose run --rm wpcli eval-file /scripts/seed.php supprimer
+```
+
+La suppression s'appuie sur la méta `_cc_seed` : elle ne peut pas emporter un
+contenu saisi à la main. Un bandeau dans l'administration compte ce qu'il
+reste tant que le ménage n'est pas fait.
+
+Vérifier ensuite qu'il ne subsiste rien ailleurs :
+
+- Les blocs restants se repèrent à l'œil : fond rayé jaune, bordure orange
+  pointillée, étiquette « CONTENU FICTIF ».
+- Les réglages de démonstration sont préfixés `[DÉMO]` dans
+  Réglages → Campus Connect (ils n'ont pas de HTML, donc pas de classe).
 - Recherche en base pour ne rien manquer :
 
   ```bash

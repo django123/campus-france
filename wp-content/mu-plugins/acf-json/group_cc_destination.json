@@ -1,0 +1,61 @@
+{
+    "key": "group_cc_destination",
+    "title": "Destination — contenu",
+    "fields": [
+        {
+            "key": "field_cc_destination_statut",
+            "label": "Statut",
+            "name": "statut",
+            "type": "select",
+            "instructions": "« Bientôt » tant que la destination n'est pas réellement ouverte. Annoncer une destination comme active engage Campus Connect auprès du visiteur.",
+            "required": 1,
+            "choices": {
+                "active": "Active",
+                "bientot": "Bientôt"
+            },
+            "default_value": "bientot",
+            "allow_null": 0,
+            "multiple": 0,
+            "ui": 0,
+            "return_format": "value",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_cc_destination_accroche",
+            "label": "Texte d'accroche",
+            "name": "texte_accroche",
+            "type": "textarea",
+            "instructions": "Une à deux phrases. Pour une destination « bientôt », rester au conditionnel et ne pas annoncer de date tant qu'elle n'est pas tenue.",
+            "required": 0,
+            "rows": 3,
+            "new_lines": "",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "destination"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Anticipe l'ouverture du Canada et de l'Allemagne.",
+    "show_in_rest": 1
+}

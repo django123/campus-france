@@ -33,7 +33,40 @@ l'URL étant stockée en base.
    `wp-content/themes/campus-connect/assets/brand/brand-tokens.css`, désactive les
    Google Fonts et régénère le CSS. Idempotent : à relancer après toute
    modification des jetons.
-4. Mettre à jour Elementor : Outils > Regénérer CSS.
+4. Poser la structure du site (langue, pages, menus, termes) :
+   ```bash
+   docker compose run --rm wpcli eval-file /scripts/structure.php
+   ```
+5. Poser le contenu de démonstration, facultatif mais utile pour maquetter :
+   ```bash
+   docker compose run --rm wpcli eval-file /scripts/seed.php
+   docker compose run --rm wpcli eval-file /scripts/seed.php supprimer   # retrait
+   ```
+6. Mettre à jour Elementor : Outils > Regénérer CSS.
+
+Les trois scripts sont idempotents : les relancer ne crée pas de doublon.
+`structure.php` ne touche jamais au contenu rédigé dans les pages, il ne
+reconstruit que les menus.
+
+## Contenus
+
+| Type | Taxonomie | Champs ACF |
+|---|---|---|
+| `pack` | `situation` (pré/post-admission) | sous-titre, prestations, ordre — **aucun prix** |
+| `temoignage` | — | prénom, établissement, ville, citation, accord écrit |
+| `partenaire` | `type_partenaire` | logo, site web, partenariat formalisé |
+| `formation` | `domaine` | — |
+| `destination` | — | statut (active / bientôt), texte d'accroche |
+
+CPT, taxonomies et groupes de champs vivent dans `wp-content/mu-plugins/` :
+ils doivent survivre à un changement de thème. Les groupes ACF sont en JSON
+versionné (`mu-plugins/acf-json/`), jamais saisis dans l'interface.
+
+ACF est installé en version **gratuite** : pas de répéteur, pas de page
+d'options. Les prestations d'un pack sont donc une zone de texte, une par
+ligne, lue par `cc_pack_prestations()` ; les réglages globaux passent par
+Réglages → Campus Connect (`mu-plugins/cc-reglages.php`). Passer en ACF Pro
+ne demanderait de retoucher que ces deux points, pas les gabarits.
 
 ## Charte et contenus
 

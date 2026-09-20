@@ -1,0 +1,98 @@
+{
+    "key": "group_cc_temoignage",
+    "title": "Témoignage — contenu",
+    "fields": [
+        {
+            "key": "field_cc_temoignage_prenom",
+            "label": "Prénom",
+            "name": "prenom",
+            "type": "text",
+            "instructions": "Prénom seul. Pas de nom de famille : il n'est pas nécessaire et alourdit inutilement la donnée personnelle conservée.",
+            "required": 1,
+            "maxlength": 60,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_cc_temoignage_etablissement",
+            "label": "Établissement",
+            "name": "etablissement",
+            "type": "text",
+            "instructions": "Établissement intégré par l'étudiant.",
+            "required": 0,
+            "maxlength": 120,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_cc_temoignage_ville",
+            "label": "Ville",
+            "name": "ville",
+            "type": "text",
+            "required": 0,
+            "maxlength": 80,
+            "wrapper": {
+                "width": "50",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_cc_temoignage_citation",
+            "label": "Citation",
+            "name": "citation",
+            "type": "textarea",
+            "instructions": "Deux à trois lignes sur le déroulé de l'accompagnement. À relire : une phrase comme « j'ai eu mon visa à coup sûr » est une promesse de résultat, interdite sur le site même dans la bouche d'un tiers.",
+            "required": 1,
+            "rows": 4,
+            "new_lines": "",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_cc_temoignage_accord",
+            "label": "Accord écrit obtenu",
+            "name": "accord_ecrit",
+            "type": "true_false",
+            "instructions": "Sans accord écrit de la personne, ce témoignage ne doit pas être publié (prénom, citation, photo). Voir cc_temoignage_diffusable().",
+            "required": 0,
+            "message": "L'accord écrit est archivé",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "Oui",
+            "ui_off_text": "Non",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "temoignage"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Données personnelles : ne conserver que ce qui est affiché.",
+    "show_in_rest": 1
+}

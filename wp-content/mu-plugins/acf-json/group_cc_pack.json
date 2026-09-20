@@ -1,0 +1,71 @@
+{
+    "key": "group_cc_pack",
+    "title": "Pack — contenu",
+    "fields": [
+        {
+            "key": "field_cc_pack_sous_titre",
+            "label": "Sous-titre",
+            "name": "sous_titre",
+            "type": "text",
+            "instructions": "Une ligne de positionnement, affichée sous le nom du pack. Pas de tarif ni de promesse de résultat.",
+            "required": 0,
+            "maxlength": 120,
+            "placeholder": "",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_cc_pack_prestations",
+            "label": "Prestations incluses",
+            "name": "prestations",
+            "type": "textarea",
+            "instructions": "Une prestation par ligne. Les lignes vides sont ignorées. C'est ce qui engage contractuellement : à faire valider avant mise en ligne.",
+            "required": 0,
+            "rows": 8,
+            "new_lines": "",
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_cc_pack_ordre",
+            "label": "Ordre d'affichage",
+            "name": "ordre_affichage",
+            "type": "number",
+            "instructions": "Du plus petit au plus grand, à l'intérieur de la situation (pré-admission ou post-admission).",
+            "required": 0,
+            "default_value": 10,
+            "min": 0,
+            "max": 999,
+            "step": 1,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "pack"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "Aucun champ de prix : la règle du projet réserve les tarifs à l'interne.",
+    "show_in_rest": 1
+}
